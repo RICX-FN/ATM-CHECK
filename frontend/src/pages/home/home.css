@@ -23,7 +23,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  padding: 10px;
+  height: 97vh;
   gap: 60px;
 }
 
