@@ -3,7 +3,7 @@ import '../home/home.css';
 
 function App() {
   useEffect(() => {
-    document.title = "Home - login";
+    document.title = "ATM CHECK";
   }, []);
 
   return (
@@ -12,7 +12,7 @@ function App() {
       <main>
         <div className="conteiner">
           <div className='titulo'>
-            <h1>ATM Express</h1>
+            <h1>ATM CHECK</h1>
           </div>
 
           <div className='btn-conteiner'>
