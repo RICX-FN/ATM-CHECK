@@ -15,7 +15,7 @@ function App() {
             <h1>ATM Express</h1>
           </div>
 
-          <div>
+          <div className='btn-conteiner'>
             <a className='btn-session-admin' href="#">Admin</a>
             <a className='btn-session-agent' href="#">Agent</a>
           </div>
