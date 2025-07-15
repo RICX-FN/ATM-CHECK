@@ -70,9 +70,45 @@ h1 {
   color: var(--color-primary)
 }
 
-p {
+.conteiner p {
   text-align: center;
   margin-top: 20px;
   font-weight: lighter;
-  color: var(--color-primary)
+  color: var(--color-primary);
+  bottom: 0px;
+}
+
+.link-client a {
+  color: #2600ff;
+  text-decoration: none;
+  font-size: 1.9em;
+  animation: pulse-check-atm 1s infinite;
+}
+
+footer {
+  font-weight: lighter;
+  text-align: center;
+  color: var(--color-primary);
+  bottom: 0;
+  position: fixed;
+  left: 0;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+@keyframes pulse-check-atm {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
