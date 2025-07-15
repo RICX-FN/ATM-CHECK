@@ -9,6 +9,9 @@
 
 body {
   background-color: var(--background);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 * {
@@ -122,6 +125,8 @@ footer {
     opacity: 1;
   }
 }
+
+/*Media Screen para Mobile (768px)*/
 
 @media screen and (max-width: 768px) {
   .btn-conteiner {
