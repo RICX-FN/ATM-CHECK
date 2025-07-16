@@ -12,11 +12,11 @@ function LoginAdmin() {
     };
 
     return (
-      <div className="Login-Admin">
+      <div className="LoginAdmin">
 
         <form onSubmit={handleSubmit}>
           <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
-            
+
           <Button label="Clique Aqui" />
         </form>
 
