@@ -1,16 +1,27 @@
+import React, { useState } from 'react';
 import '../login-admin/login-admin.css';
-import Button from '../../components/Button';
+import Button from '../../components/button/Button';
+import EmailInput from '../../components/email-input/EmailInput'
 
 function LoginAdmin() {
+    const [email, setEmail] = useState("");
 
-  return (
-    <div className="Login-Admin">
-        <main>
-            <h1>Login-Admin</h1>
-            <Button label="Clique Aqui" />
-        </main>
-    </div>
-  );
-}
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      alert(`E-mail enviado: ${email}`);
+    };
 
-export default LoginAdmin;
+    return (
+      <div className="Login-Admin">
+
+        <form onSubmit={handleSubmit}>
+          <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
+            
+          <Button label="Clique Aqui" />
+        </form>
+
+      </div>
+    );
+  }
+
+  export default LoginAdmin;
