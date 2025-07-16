@@ -1,0 +1,93 @@
+.LoginAgent {
+    margin: 10px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 36pt;
+    font-weight: bolder;
+    animation: pulse-check-atm 3s infinite;
+}
+
+p {
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #ffffffa6;
+}
+
+form {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+EmailInput {
+    width: 480px;
+    gap: 100px;
+}
+
+EmailInput::placeholder {
+    color: #fff;
+}
+
+Button {
+    width: 480px;
+    margin-top: 30px;
+    font-weight: normal;
+    animation: pulse-btn 2s infinite;
+}
+
+.check-session > label {
+    font-size: 12pt;
+    font-weight: 400;
+}
+.check-session {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.check-conect {
+    width: 20px;
+    margin-right: 10px;
+    margin-top: 30px;
+}
+
+.check-conect:focus {
+    box-shadow: none;
+}
+
+
+
+@keyframes pulse-check-atm {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-btn {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

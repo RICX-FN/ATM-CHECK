@@ -19,7 +19,8 @@ function Home() {
 
           <div className='btn-conteiner'>
             <Link to="/login-admin" className='btn-session-admin'>Admin</Link>
-            <a className='btn-session-agent' href="#">Agent</a>
+
+            <Link to="/login-agent" className='btn-session-agent'>Agente</Link>
           </div>
 
           <p>Explore nossa Plataforma <strong>ATM CHECK</strong> e descubra os <strong>melhores </strong>pontos de Caixa Eletronico.</p>
