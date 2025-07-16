@@ -1,0 +1,23 @@
+.Login-Admin {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+}
+
+.login-box h1 {
+    font-size: 5rem;
+}
+
+.login-box h2 {
+    font-size: 20px;
+    margin-left: 100px;
+    color: #321DA8;
+}
+
+form {
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+    gap: 1.5rem;
+}
