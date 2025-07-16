@@ -1,13 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../pages/home/Home";
-import loginadm from "../pages/loginadm/LoginAdm";
+import LoginAdmin from "../pages/login-admin/login-admin";
 
-export default function Routes() {
+export default function ATMRoutes() {
     return (
-        <BrowserRouter>
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/login-admin" element={<LoginAdmin />} />
         </Routes>
-        </BrowserRouter>
     );
 }

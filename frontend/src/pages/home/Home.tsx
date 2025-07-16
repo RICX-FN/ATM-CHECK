@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../home/home.css';
 
 function Home() {
@@ -17,7 +18,7 @@ function Home() {
           </div>
 
           <div className='btn-conteiner'>
-            <a className='btn-session-admin' href="#">Admin</a>
+            <Link to="/login-admin" className='btn-session-admin'>Admin</Link>
             <a className='btn-session-agent' href="#">Agent</a>
           </div>
 
