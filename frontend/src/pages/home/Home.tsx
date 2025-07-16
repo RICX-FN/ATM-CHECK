@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import '../home/home.css';
 
-function App() {
+function Home() {
   useEffect(() => {
     document.title = "ATM CHECK";
   }, []);
 
   return (
-    <div className="App">
+    <div className="Home">
 
       <main>
         
@@ -39,4 +39,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
