@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../login-agent/login-agent.css';
+import '../../styles/login-global.css';
 import Button from '../../components/button/Button';
 import EmailInput from '../../components/email-input/EmailInput'
 

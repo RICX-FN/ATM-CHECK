@@ -1,5 +1,12 @@
-.LoginAgent {
+body {
+  background-image: url('../images/bg-login.jpg');
+}
+
+.LoginAgent, .LoginAdmin{
     margin: 10px;
+    background-color: #070416dc;
+    margin: 0px;
+    height: 100vh;
 }
 
 h1 {
@@ -30,7 +37,7 @@ EmailInput {
 }
 
 EmailInput::placeholder {
-    color: #fff;
+    color: #ffffffd5;
 }
 
 Button {
@@ -43,6 +50,7 @@ Button {
 .check-session > label {
     font-size: 12pt;
     font-weight: 400;
+    color: #ffffffd5;
 }
 .check-session {
     display: flex;
@@ -53,9 +61,9 @@ Button {
 }
 
 .check-conect {
-    width: 20px;
+    width: 15px;
     margin-right: 10px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .check-conect:focus {

@@ -1,20 +1,15 @@
 input {
     border: none;
     font-size: 1.2em;
-<<<<<<< HEAD
-    width: 500px;
-    height: 40px;
-=======
     width: 480px;
     height: 45px;
->>>>>>> 017be1a222a0fbbb9e6f388cd180c79b8019a400
     border-radius: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #fff;
-    padding: 10px;
+    padding: 20px;
     outline: none;
     font-weight: normal;
-    background-color: #b3b3e0d7;
+    background-color: #b3b3e08f;
 }
 
 input:focus {
