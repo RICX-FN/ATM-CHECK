@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../../styles/login-global.css';
 import Button from '../../components/button/Button';
 import EmailInput from '../../components/email-input/EmailInput'
-
+import PasswordInput from '../../components/senha-input/PasswordInput'
 function LoginAgent() {
   const [email, setEmail] = useState("");
 
@@ -21,7 +21,7 @@ function LoginAgent() {
 
           <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
 
-          <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <PasswordInput />
 
           <Button label="Entrar" />
 
@@ -31,7 +31,6 @@ function LoginAgent() {
           </div>
         </form>
       </div>
-
     </div>
   );
 }
