@@ -13,22 +13,24 @@ function LoginAdmin() {
 
   return (
     <div className="LoginAdmin">
-      <form onSubmit={handleSubmit}>
-        <h1>ATM CHECK</h1>
-        <p>Sou um Admin, faça login.</p>
+      <div className="conteiner-login">
+        <form onSubmit={handleSubmit}>
+          <h1>ATM CHECK</h1>
+          <p>Sou um Admin, faça login.</p>
 
-        <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
 
-        <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
 
-        <Button label="Entrar" />
+          <Button label="Entrar" />
 
-        <div className="check-session">
-          <input type="checkbox" className='check-conect' name="check" id="check" />
-          <label htmlFor="check">Mantenha-me Conectado</label>
-        </div>
-      </form>
+          <div className="check-session">
+            <input type="checkbox" className='check-conect' name="check" id="check" />
+            <label htmlFor="check">Mantenha-me Conectado</label>
+          </div>
+        </form>
 
+      </div>
     </div>
   );
 }

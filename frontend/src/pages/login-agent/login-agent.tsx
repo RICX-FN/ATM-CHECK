@@ -13,21 +13,24 @@ function LoginAgent() {
 
   return (
     <div className="LoginAgent">
-      <form onSubmit={handleSubmit}>
-        <h1>ATM CHECK</h1>
-        <p>Sou um Agente, faça login.</p>
 
-        <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
+      <div className="conteiner-login">
+        <form onSubmit={handleSubmit}>
+          <h1>ATM CHECK</h1>
+          <p>Sou um Agente, faça login.</p>
 
-        <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
 
-        <Button label="Entrar" />
+          <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
 
-        <div className="check-session">
-          <input type="checkbox" className='check-conect' name="check" id="check" />
-          <label htmlFor="check">Mantenha-me Conectado</label>
-        </div>
-      </form>
+          <Button label="Entrar" />
+
+          <div className="check-session">
+            <input type="checkbox" className='check-conect' name="check" id="check" />
+            <label htmlFor="check">Mantenha-me Conectado</label>
+          </div>
+        </form>
+      </div>
 
     </div>
   );
