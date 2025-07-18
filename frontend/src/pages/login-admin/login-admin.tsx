@@ -23,7 +23,7 @@ function LoginAdmin() {
 
           <PasswordInput />
 
-          <Button label="Entrar" />
+          <Button label="Entrar"/>
 
           <div className="check-session">
             <input type="checkbox" className='check-conect' name="check" id="check" />

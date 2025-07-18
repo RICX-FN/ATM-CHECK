@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../home/home.css';
+import BtnLogout from '../../components/btn-logout/BtnLogout'
 
 function Home() {
   useEffect(() => {
@@ -11,7 +12,6 @@ function Home() {
     <div className="Home">
 
       <main>
-        
         <div className="conteiner">
           <div className='titulo'>
             <h1>ATM CHECK</h1>

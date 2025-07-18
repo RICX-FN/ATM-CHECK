@@ -1,4 +1,4 @@
-button {
+.btn-login {
     padding: 15px;
     color: #fff;
     font-size: 1.2em;
@@ -11,7 +11,7 @@ button {
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-button:hover {
+.btn-login:hover {
     background-color: var(--color-second);
     transition: all .3s ease;
 }
