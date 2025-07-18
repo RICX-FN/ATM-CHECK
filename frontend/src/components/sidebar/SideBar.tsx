@@ -1,12 +1,10 @@
-// Importando a biblioteca React
-import React from 'react';
+import '../sidebar/sidebar.css';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import BtnLogout from '../btn-logout/BtnLogout';
 import { MdSupportAgent } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoNotifications } from "react-icons/io5";
-
 
 
 function SideBar() {
@@ -20,6 +18,7 @@ function SideBar() {
 
         <div className="content-links">
           <nav>
+          <p className='navegacao'>Navegação</p>
 
             <Link to="/" className='btn-sidebar'>
               {(MdSupportAgent as any)({ size: 25, style: { color: '#fff', transition: '.7s ease;' } }) as ReactElement}
@@ -44,6 +43,7 @@ function SideBar() {
           <hr />
           <BtnLogout />
         </div>
+
       </div>
     </aside>
   );
