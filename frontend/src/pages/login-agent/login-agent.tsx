@@ -23,7 +23,7 @@ function LoginAgent() {
 
           <PasswordInput />
 
-          <Button label="Entrar" />
+          <Button className='btn-login' label="Entrar" />
 
           <div className="check-session">
             <input type="checkbox" className='check-conect' name="check" id="check" />
