@@ -18,7 +18,7 @@ function SideBar() {
 
         <div className="content-links">
           <nav>
-          <p className='navegacao'>Navegação</p>
+            <p className='navegacao'>Navegação</p>
 
             <Link to="/" className='btn-sidebar'>
               {(MdSupportAgent as any)({ size: 25, style: { color: '#fff', transition: '.7s ease;' } }) as ReactElement}

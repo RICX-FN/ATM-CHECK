@@ -29,6 +29,7 @@ hr {
 
 .user-mail {
     text-align: left;
+    font-style: italic;
     margin: 0px;
     padding-bottom: 10px;
 }
@@ -36,10 +37,10 @@ hr {
 .navegacao {
     color: #ffffff98;
     margin: 0px;
-    
+
 }
 
-.content-links > nav {
+.content-links>nav {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -47,13 +48,13 @@ hr {
     gap: 30px;
 }
 
-.content-links > nav > a {
+.content-links>nav>a {
     color: #fff;
     font-size: 1.3em;
     text-decoration: none;
 }
 
-.content-links > nav > a:hover {
+.content-links>nav>a:hover {
     opacity: 0.7;
     scale: 1.1;
     transition: all .3s ease-in-out;

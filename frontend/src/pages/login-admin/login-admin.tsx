@@ -17,7 +17,7 @@ function LoginAdmin() {
       <div className="conteiner-login">
         <form onSubmit={handleSubmit}>
           <h1>ATM CHECK</h1>
-          <p>Sou um Admin, faça login.</p>
+          <p className='quemsou'>Sou um Admin, faça login.</p>
 
           <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
 

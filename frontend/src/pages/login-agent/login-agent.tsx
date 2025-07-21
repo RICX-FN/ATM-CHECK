@@ -17,7 +17,7 @@ function LoginAgent() {
       <div className="conteiner-login">
         <form onSubmit={handleSubmit}>
           <h1>ATM CHECK</h1>
-          <p>Sou um Agente, faça login.</p>
+          <p className='quemsou'>Sou um Agente, faça login.</p>
 
           <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} required />
 

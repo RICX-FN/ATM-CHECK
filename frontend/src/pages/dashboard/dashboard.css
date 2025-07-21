@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    margin-left: 280px;
+    justify-content: center;
+}
+
+.session-agent {
+    justify-content: space-between;
+
+}
+
+.card-agent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 80vw;
+    height: 30px;
+    margin-top: 40px;
+    border-radius: 10px;
+    background-color: #ffffff3b;
+}
+
+.btn-crud {
+    display: flex;
+    gap: 10px;
+}
+
+.id-agent {
+    text-align: center;
+    font-weight: 300;
+}
+
+.btn-add {
+    display: flex;
+    justify-content: end;
+}
+
+.btn-login {
+    position: fixed;
+    bottom: 40px;
+    width: 150px;
+}
