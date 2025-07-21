@@ -7,7 +7,7 @@ body {
     position: fixed;
     display: flex;
     width: 250px;
-    height: 98.8dvh;
+    height: 100%;
     padding: 10px;
     padding-bottom: 0px;
     flex-direction: column;
