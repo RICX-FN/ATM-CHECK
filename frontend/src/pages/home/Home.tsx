@@ -26,7 +26,7 @@ function Home() {
           <p className='p-explore'>Explore nossa Plataforma <strong>ATM CHECK</strong> e descubra os <strong>melhores </strong>pontos de Caixa Eletronico.</p>
 
           <div className="link-client">
-            <a href="#">CHECAR AGORA</a>
+            <a href="/destino">CHECAR AGORA</a>
           </div>
 
         </div>
