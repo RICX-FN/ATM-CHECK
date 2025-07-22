@@ -10,8 +10,8 @@
 .LoginAdmin {
   margin: 10px;
   margin: 0px;
-  width: 100dvw;
-  height: 100dvh;
+  width: 100vw;
+  height: 100vh;
   background-image: url('../images/bg-login.jpg');
   background-repeat: no-repeat;
   background-size: cover;
