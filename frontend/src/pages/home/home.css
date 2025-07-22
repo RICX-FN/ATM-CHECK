@@ -147,6 +147,11 @@ body {
 /* ✅ Estilo Mobile */
 
 @media screen and (max-width: 768px) {
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   .Home {
     width: 100%;
     height: 100vh;
@@ -161,9 +166,22 @@ body {
 
   .btn-session-admin,
   .btn-session-agent {
-    padding: 20px;
+    padding: 18px;
     width: 90%;
     max-width: 300px;
     margin-right: 0;
+    font-size: 1.1em;
+  }
+
+  .atmcheck {
+    font-size: 40px;
+  }
+
+  .link-client a {
+    font-size: 20px;
+  }
+
+  .conteiner .p-explore {
+    font-size: 15px;
   }
 }
