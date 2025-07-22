@@ -11,13 +11,16 @@ body {
   background-image: url('../../images/bg-login.jpg');
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-size: cover;
+  width: 100dvw;
+  height: 100dvh;
 }
 
 .Home {
   background-color: #070416dc;
-  background-repeat: no-repeat;
-  background-size: cover;
+  width: 100dvw;
+  height: 100dvh;
 }
 
 * {
@@ -33,7 +36,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: 10px;
-  height: 100dvh;
   gap: 60px;
 }
 
@@ -59,7 +61,7 @@ body {
 .btn-session-admin:hover {
   background-color: var(--color-primary);
   border: 2px solid var(--color-primary);
-  color: var(--background);
+  color: #fff;
   transition: all .3s ease;
 }
 
@@ -78,7 +80,7 @@ body {
 .btn-session-agent:hover {
   background-color: transparent;
   border: 2px solid var(--color-primary);
-  color: #fff;
+  color: var(--color-primary);
   transition: all .3s ease;
 }
 
@@ -139,12 +141,18 @@ body {
 /*Media Screen para Mobile (768px)*/
 
 @media screen and (max-width: 768px) {
+  .Home {
+    width: 100dvw;
+    height: 100dvh;
+  }
+
   .btn-conteiner {
     flex-direction: column;
     gap: 20px;
   }
 
-  .btn-session-admin, .btn-session-agent {
+  .btn-session-admin,
+  .btn-session-agent {
     padding: 20px 170px;
   }
 }
