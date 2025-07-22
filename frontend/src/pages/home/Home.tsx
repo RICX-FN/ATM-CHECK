@@ -14,7 +14,7 @@ function Home() {
       <main>
         <div className="conteiner">
           <div className='titulo'>
-            <h1>ATM CHECK</h1>
+            <h1 className='atmcheck'>ATM CHECK</h1>
           </div>
 
           <div className='btn-conteiner'>
@@ -23,18 +23,18 @@ function Home() {
             <Link to="/login-agent" className='btn-session-agent'>Agente</Link>
           </div>
 
-          <p>Explore nossa Plataforma <strong>ATM CHECK</strong> e descubra os <strong>melhores </strong>pontos de Caixa Eletronico.</p>
+          <p className='p-explore'>Explore nossa Plataforma <strong>ATM CHECK</strong> e descubra os <strong>melhores </strong>pontos de Caixa Eletronico.</p>
 
           <div className="link-client">
-            <a href="#">Check ATM</a>
+            <a href="#">CHECAR AGORA</a>
           </div>
 
         </div>
 
       </main>
 
-      <footer>
-        <p>&copy; 2025 Todos direitos reservados.</p>
+      <footer className='footer-home'>
+        <p className='copyright'>&copy; 2025 Css no Backend. Todos direitos reservados.</p>
       </footer>
 
     </div>

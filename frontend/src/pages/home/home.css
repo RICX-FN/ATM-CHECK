@@ -8,8 +8,14 @@
 }
 
 body {
-  background-color: var(--background);
+  background-image: url('../../images/bg-login.jpg');
   background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.Home {
+  background-color: #070416dc;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -27,7 +33,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 10px;
-  height: 97vh;
+  height: 100dvh;
   gap: 60px;
 }
 
@@ -66,24 +72,24 @@ body {
   font-size: 1.3em;
   text-decoration: none;
   background-color: var(--color-primary);
-  color: var(--background);
+  color: #fff;
 }
 
 .btn-session-agent:hover {
   background-color: transparent;
   border: 2px solid var(--color-primary);
-  color: var(--color-primary);
+  color: #fff;
   transition: all .3s ease;
 }
 
-h1 {
+.atmcheck {
   text-align: center;
   font-size: 48pt;
   margin-bottom: 10px;
   color: var(--color-primary)
 }
 
-.conteiner p {
+.conteiner .p-explore {
   text-align: center;
   margin-top: 20px;
   font-weight: lighter;
@@ -98,7 +104,7 @@ h1 {
   animation: pulse-check-atm 1s infinite;
 }
 
-footer {
+.footer-home {
   font-weight: lighter;
   text-align: center;
   color: var(--color-primary);
@@ -107,6 +113,10 @@ footer {
   left: 0;
   margin-bottom: 10px;
   width: 100%;
+}
+
+.copyright {
+  font-weight: normal;
 }
 
 @keyframes pulse-check-atm {
