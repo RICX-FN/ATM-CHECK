@@ -1,12 +1,22 @@
-import React from 'react'
-import '../../styles/login-global.css'
+// PasswordInput.tsx
+import React from 'react';
+import '../../styles/login-global.css';
 
-function PasswordInput() {
-  return (
-    <div>
-        <input type="password" name="" id="" placeholder='Senha'/>
-    </div>
-  )
-}
+type PasswordInputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-export default PasswordInput
+const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
+  ({ placeholder = "Senha", className = "", ...rest }, ref) => {
+    return (
+      <div className={`password-input ${className}`}>
+        <input
+          type="password"
+          ref={ref}
+          placeholder={placeholder}
+          {...rest}
+        />
+      </div>
+    );
+  }
+);
+
+export default PasswordInput;
