@@ -15,13 +15,15 @@ function LoginAdmin() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<LoginForm>();
 
   const navigate = useNavigate();
   const [erro, setErro] = useState("");
 
   const onSubmit = async (data: LoginForm) => {
+    setErro(""); // limpa o erro antes da requisição
+
     try {
       const response = await fetch("https://backend-atm-check.onrender.com/auth/login", {
         method: "POST",
@@ -30,7 +32,11 @@ function LoginAdmin() {
       });
 
       if (!response.ok) {
-        throw new Error("Credenciais inválidas");
+        if (response.status === 401) {
+          throw new Error("Credenciais inválidas");
+        } else {
+          throw new Error(`Erro do servidor (${response.status})`);
+        }
       }
 
       const result = await response.json();
@@ -40,29 +46,38 @@ function LoginAdmin() {
 
       // Redireciona
       navigate("/dashboard");
-    } catch (error) {
-      setErro("Email ou senha incorretos");
+    } catch (error: any) {
+      console.error("Erro na requisição:", error);
+      setErro(error.message === "Failed to fetch"
+        ? "Erro de conexão com o servidor"
+        : error.message);
     }
   };
 
   return (
     <div className="LoginAdmin">
       <div className="conteiner-login">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <h1>ATM CHECK</h1>
           <p className='quemsou'>Sou um Admin, faça login.</p>
 
-          {erro && <p style={{ color: "red" }}>{erro}</p>}
+          {erro && <p className="erro-msg">{erro}</p>}
 
-          <EmailInput {...register("email", { required: "Email é obrigatório" })} />
-          
-          <PasswordInput {...register("senha", { required: "Senha é obrigatória" })} />
+          <div className={`input-group ${errors.email ? 'input-error' : ''}`}>
+            <EmailInput {...register("email", { required: "Email é obrigatório" })} />
+            {errors.email && <span className="erro-msg">{errors.email.message}</span>}
+          </div>
 
-          {errors.senha && (
-            <span className="erro-msg">{errors.senha.message}</span>
-          )}
+          <div className={`input-group ${errors.senha ? 'input-error' : ''}`}>
+            <PasswordInput {...register("senha", { required: "Senha é obrigatória" })} />
+            {errors.senha && <span className="erro-msg">{errors.senha.message}</span>}
+          </div>
 
-          <Button className='btn-login' label="Entrar" />
+          <Button
+            className='btn-login'
+            label={isSubmitting ? "Entrando..." : "Entrar"}
+            disabled={isSubmitting}
+          />
 
           <div className="check-session">
             <input type="checkbox" className='check-conect' name="check" id="check" />
