@@ -23,7 +23,7 @@ function LoginAdmin() {
 
   const onSubmit = async (data: LoginForm) => {
     try {
-      const response = await fetch("https://backend-atm-check.onrender.com/api/admins/login", {
+      const response = await fetch("https://backend-atm-check.onrender.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
