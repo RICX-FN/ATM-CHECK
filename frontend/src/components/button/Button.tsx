@@ -1,24 +1,30 @@
 import React from 'react';
-import '../button/button.css'; 
-
+import '../button/button.css';
 
 interface ButtonProps {
   label: string;
   onClick?: () => void;
-  type?: "button" | "submit" | "reset";
+  type?: 'button' | 'submit' | 'reset';
   className?: string;
-  disabled?: boolean; // 👈 adicionado
+  disabled?: boolean;
+  ariaLabel?: string;
 }
 
-
-const Button: React.FC<ButtonProps> = ({ label, onClick, type = "button", className = "", disabled }) => {
+const Button: React.FC<ButtonProps> = ({
+  label,
+  onClick,
+  type = 'submit', // ✅ Agora o padrão é 'submit'
+  className = '',
+  disabled = false,
+  ariaLabel
+}) => {
   return (
     <button
       type={type}
       onClick={onClick}
-      // Corrigido: Usando 'className' no atributo
       className={className}
       disabled={disabled}
+      aria-label={ariaLabel || label} // ✅ Acessibilidade extra
     >
       {label}
     </button>
