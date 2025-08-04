@@ -33,7 +33,7 @@ function LoginAdmin() {
 
       if (!response.ok) {
         if (response.status === 401) {
-          throw new Error("Credenciais inválidas");
+          throw new Error("Credenciais inválidas. Tente novamente.");
         } else {
           throw new Error(`Erro do servidor (${response.status})`);
         }
@@ -61,23 +61,25 @@ function LoginAdmin() {
           <h1>ATM CHECK</h1>
           <p className='quemsou'>Sou um Admin, faça login.</p>
 
-          {erro && <p className="erro-msg">{erro}</p>}
 
           <div className={`input-group ${errors.email ? 'input-error' : ''}`}>
-            <EmailInput {...register("email", { required: "Email é obrigatório" })} />
-            {errors.email && <span className="erro-msg">{errors.email.message}</span>}
+            <EmailInput {...register("email", { required: "Email é obrigatório." })} />
+            {errors.email && <span className="erro-msg-email">{errors.email.message}</span>}
           </div>
 
           <div className={`input-group ${errors.senha ? 'input-error' : ''}`}>
-            <PasswordInput {...register("senha", { required: "Senha é obrigatória" })} />
-            {errors.senha && <span className="erro-msg">{errors.senha.message}</span>}
+            <PasswordInput {...register("senha", { required: "Senha é obrigatória." })} />
+            {errors.senha && <span className="erro-msg-senha">{errors.senha.message}</span>}
           </div>
 
+          
           <Button
             className='btn-login'
             label={isSubmitting ? "Entrando..." : "Entrar"}
             disabled={isSubmitting}
-          />
+            />
+
+            {erro && <p className="erro-msg-cre">{erro}</p>}
         </form>
       </div>
     </div>

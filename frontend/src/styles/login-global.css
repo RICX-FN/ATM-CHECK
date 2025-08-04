@@ -31,6 +31,22 @@ h1 {
   color: #ffffffa6;
 }
 
+.erro-msg-email,
+.erro-msg-senha {
+  color: red;
+  font-weight: normal;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.erro-msg-cre {
+  text-align: center;
+  color: red;
+  font-weight: normal;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
 form {
   width: 100vw;
   height: 100vh;
