@@ -78,11 +78,6 @@ function LoginAdmin() {
             label={isSubmitting ? "Entrando..." : "Entrar"}
             disabled={isSubmitting}
           />
-
-          <div className="check-session">
-            <input type="checkbox" className='check-conect' name="check" id="check" />
-            <label htmlFor="check">Mantenha-me Conectado</label>
-          </div>
         </form>
       </div>
     </div>
