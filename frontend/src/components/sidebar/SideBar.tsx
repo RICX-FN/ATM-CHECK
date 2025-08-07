@@ -1,3 +1,5 @@
+// src/components/sidebar/SideBar.tsx
+
 import '../sidebar/sidebar.css';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
@@ -6,8 +8,13 @@ import { MdSupportAgent } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoNotifications } from "react-icons/io5";
 
+// 👉 Adiciona a interface para definir as props
+interface SideBarProps {
+  userEmail: string | null;
+}
 
-function SideBar() {
+// 👉 O componente agora recebe a prop 'userEmail'
+function SideBar({ userEmail }: SideBarProps) {
   return (
 
     <aside>
@@ -39,11 +46,11 @@ function SideBar() {
         </div>
 
         <div className="content-logout">
-          <p className='user-mail'>user@gmail.com</p>
+          {/* 👉 Exibe o e-mail do usuário se ele existir */}
+          {userEmail && <p className='user-mail'>{userEmail}</p>}
           <hr />
           <BtnLogout />
         </div>
-
       </div>
     </aside>
   );

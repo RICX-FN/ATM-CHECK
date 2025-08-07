@@ -22,7 +22,7 @@ function LoginAdmin() {
   const [erro, setErro] = useState("");
 
   const onSubmit = async (data: LoginForm) => {
-    setErro(""); // limpa o erro antes da requisição
+    setErro("");
 
     try {
       const response = await fetch("https://backend-atm-check.onrender.com/auth/login", {
@@ -42,9 +42,11 @@ function LoginAdmin() {
       const result = await response.json();
 
       // Armazena o token no cookie
-      document.cookie = `token=${result.token}; path=/; max-age=86400`; // 1 dia
+      document.cookie = `token=${result.token}; path=/; max-age=86400`;
 
-      // Redireciona
+      // 👉 NOVA LINHA: Salva o email do usuário no localStorage
+      localStorage.setItem("userEmail", data.email);
+      
       navigate("/dashboard");
     } catch (error: any) {
       console.error("Erro na requisição:", error);
@@ -59,8 +61,7 @@ function LoginAdmin() {
       <div className="conteiner-login">
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <h1>ATM CHECK</h1>
-          <p className='quemsou'>Sou um Admin, faça login.</p>
-
+          <p className='quemsou'>Admin, faça login.</p>
 
           <div className={`input-group ${errors.email ? 'input-error' : ''}`}>
             <EmailInput {...register("email", { required: "Email é obrigatório." })} />
@@ -72,7 +73,6 @@ function LoginAdmin() {
             {errors.senha && <span className="erro-msg-senha">{errors.senha.message}</span>}
           </div>
 
-          
           <Button
             className='btn-login'
             label={isSubmitting ? "Entrando..." : "Entrar"}
