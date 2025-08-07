@@ -1,28 +1,34 @@
-// src/pages/Dashboard.tsx
+// src/pages/dashboard/Dashboard.tsx
 
 import React, { useState, useEffect } from 'react';
 import '../dashboard/dashboard.css';
 import SideBar from '../../components/sidebar/SideBar';
 import Button from '../../components/button/Button';
-import { MdOutlineEdit } from "react-icons/md";
+import { MdOutlineEdit, MdMenu } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
 
 function Dashboard() {
-  // 👉 1. Adiciona um estado para o e-mail do usuário
   const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    // 👉 2. Lê o e-mail do localStorage quando o componente é renderizado
     const email = localStorage.getItem('userEmail');
     setUserEmail(email);
   }, []);
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <div className="Dashboard">
-      {/* 👉 3. Passa o estado do e-mail como uma prop para a SideBar */}
-      <SideBar userEmail={userEmail} />
-      <div className='container'>
+      <button className="menu-toggle" onClick={toggleSidebar}>
+        {(MdMenu as any)({ size: 30 })}
+      </button>
 
+      <SideBar userEmail={userEmail} isOpen={isSidebarOpen} />
+      
+      <div className='container'>
         <section className='session-agent'> 
           <div className="card-agent">
             <h3 className='id-h3'>ID</h3>

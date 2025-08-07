@@ -13,7 +13,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = ({
   label,
   onClick,
-  type = 'submit', // ✅ Agora o padrão é 'submit'
+  type = 'submit', 
   className = '',
   disabled = false,
   ariaLabel

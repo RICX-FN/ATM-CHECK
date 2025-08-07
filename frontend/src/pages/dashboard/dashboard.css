@@ -84,6 +84,22 @@
     transition: all .3s ease;
 }
 
+/* src/pages/dashboard/dashboard.css */
+
+/* Estilos para o botão de menu */
+.menu-toggle {
+  display: none; /* Oculto por padrão em telas grandes */
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
 /*Animações*/
 
 @keyframes pulse-btn {
@@ -97,5 +113,22 @@
 
     100% {
         opacity: 1;
+    }
+}
+
+
+@keyframes pulse-btn {
+    /* ... sua animação ... */
+}
+
+
+@media screen and (max-width: 768px) {
+    /* Remove a linha 'display: none;' que impedia a sidebar de aparecer. */
+    /* .sidebar {
+        display: none;
+    } */
+
+    .menu-toggle {
+      display: block;
     }
 }

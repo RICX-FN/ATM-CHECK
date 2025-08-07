@@ -8,16 +8,14 @@ import { MdSupportAgent } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoNotifications } from "react-icons/io5";
 
-// 👉 Adiciona a interface para definir as props
 interface SideBarProps {
   userEmail: string | null;
+  isOpen: boolean;
 }
 
-// 👉 O componente agora recebe a prop 'userEmail'
-function SideBar({ userEmail }: SideBarProps) {
+function SideBar({ userEmail, isOpen }: SideBarProps) {
   return (
-
-    <aside>
+    <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="conteiner-sidebar">
         <div className="content-perfil">
           <h3 className='tittle'>Dashboard</h3>
@@ -46,7 +44,6 @@ function SideBar({ userEmail }: SideBarProps) {
         </div>
 
         <div className="content-logout">
-          {/* 👉 Exibe o e-mail do usuário se ele existir */}
           {userEmail && <p className='user-mail'>{userEmail}</p>}
           <hr />
           <BtnLogout />

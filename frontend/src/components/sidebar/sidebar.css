@@ -1,9 +1,12 @@
+/* src/components/sidebar/sidebar.css */
+
 body {
     color: #fff;
     font-weight: normal;
 }
 
-.conteiner-sidebar {
+/* Estilos padrão para a sidebar em telas grandes, usando a classe que o React aplica */
+.sidebar {
     position: fixed;
     display: flex;
     width: 250px;
@@ -14,10 +17,12 @@ body {
     justify-content: space-between;
     align-items: start;
     background: -webkit-linear-gradient(to top, #5856d6, #321da8);
-    /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #5856d6, #321da8);
+    box-shadow: rgba(185, 185, 185, 0.2) 0px 2px 8px 0px; /* Adicionado do seu outro seletor */
+    transition: transform 0.3s ease-in-out; /* Mantenha a transição aqui */
 }
 
+/* Os estilos para os elementos internos da sidebar permanecem os mesmos, mas os seletores foram unificados */
 .tittle {
     font-size: 2em;
 }
@@ -38,7 +43,6 @@ hr {
 .navegacao {
     color: #ffffff98;
     margin: 0px;
-
 }
 
 .content-links>nav {
@@ -75,4 +79,22 @@ span {
     justify-content: center;
     align-items: center;
     gap: 10px;
+}
+
+/* Media Query para telas pequenas (smartphones) */
+@media (max-width: 768px) {
+  /* A sidebar é inicialmente oculta fora da tela */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%); /* Move para fora da tela */
+    z-index: 999;
+  }
+
+  /* Quando a classe 'open' é adicionada, a sidebar volta para a tela */
+  .sidebar.open {
+    transform: translateX(0);
+  }
 }
