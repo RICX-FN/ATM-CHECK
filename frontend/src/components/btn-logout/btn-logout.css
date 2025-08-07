@@ -19,3 +19,9 @@
 span {
     color: #fff;
 }
+
+@media screen and (max-width: 768px) {
+    .btn-logout {
+        padding-bottom: 40px;
+    }
+}
