@@ -1,5 +1,11 @@
 /* src/pages/dashboard/dashboard.css */
 
+.Dashboard {
+    background-color: #070416e7;
+    width: 100%;
+    height: 100dvh;
+}
+
 .container {
     display: flex;
     width: 100vw;
@@ -16,7 +22,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    width: 60vw;
+    width: 90vw;
     height: 30px;
     margin-left: 320px;
     margin-right: 40px;
@@ -85,15 +91,15 @@
 
 /* Estilos para o botão de menu */
 .menu-toggle {
-  display: none;
-  position: fixed;
-  top: 15px;
-  background: transparent;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  z-index: 1000;
+    display: none;
+    position: fixed;
+    top: 15px;
+    background: transparent;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    z-index: 1000;
 }
 
 /* Animações */
@@ -101,9 +107,11 @@
     0% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.5;
     }
+
     100% {
         opacity: 1;
     }
@@ -111,6 +119,7 @@
 
 /* Media Query para telas pequenas (smartphones) */
 @media screen and (max-width: 768px) {
+
     /* Exibe o botão de menu */
     .menu-toggle {
         display: block;
@@ -120,22 +129,23 @@
     .container {
         /* Garante que o conteúdo não seja esmagado pela sidebar */
         width: 100vw;
-        padding-top: 50px; /* Adiciona um padding para o conteúdo não ficar atrás do botão */
+        padding-top: 50px;
+        /* Adiciona um padding para o conteúdo não ficar atrás do botão */
     }
 
     .session-agent {
-      /* Garante que o conteúdo não se espalhe */
-      padding: 0 10px;
+        /* Garante que o conteúdo não se espalhe */
+        padding: 0 10px;
     }
-    
+
     .card-agent {
-        width: 100%;
+        width: 90vw;
         margin-left: 0;
         margin-right: 0;
     }
 
     .button-adicionar {
-        width: 100px;
+        width: 90%;
         font-size: 1em;
         margin-right: 10px;
     }
