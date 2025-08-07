@@ -15,7 +15,9 @@ interface SideBarProps {
 
 function SideBar({ userEmail, isOpen }: SideBarProps) {
   return (
+    // A classe 'sidebar' controla a animação e o posicionamento
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+      {/* A classe 'conteiner-sidebar' controla o layout flexbox interno */}
       <div className="conteiner-sidebar">
         <div className="content-perfil">
           <h3 className='tittle'>Dashboard</h3>
@@ -39,7 +41,6 @@ function SideBar({ userEmail, isOpen }: SideBarProps) {
               {(IoNotifications as any)({ size: 25, style: { color: '#fff', transition: '.7s ease;' } }) as ReactElement}
               <span className='icon-sidebar'>Notificações</span>
             </Link>
-
           </nav>
         </div>
 

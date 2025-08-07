@@ -1,3 +1,5 @@
+/* src/pages/dashboard/dashboard.css */
+
 .container {
     display: flex;
     width: 100vw;
@@ -5,8 +7,8 @@
 }
 
 .session-agent {
+    /* Esta regra já garante o espaço entre os elementos */
     justify-content: space-between;
-
 }
 
 .card-agent {
@@ -27,7 +29,6 @@
 .card-agent:hover {
     scale: 1.01;
     transition: all .3s ease;
-
 }
 
 .btn-crud {
@@ -74,9 +75,7 @@
     font-weight: normal;
     animation: pulse-btn 2s infinite;
     background: -webkit-linear-gradient(90deg, #5856d6, #321da8);
-    /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(90deg, #5856d6, #321da8);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .button-adicionar:hover {
@@ -84,15 +83,12 @@
     transition: all .3s ease;
 }
 
-/* src/pages/dashboard/dashboard.css */
-
 /* Estilos para o botão de menu */
 .menu-toggle {
-  display: none; /* Oculto por padrão em telas grandes */
+  display: none;
   position: fixed;
   top: 15px;
-  left: 15px;
-  background: #333;
+  background: transparent;
   color: #fff;
   border: none;
   padding: 5px 10px;
@@ -100,35 +96,47 @@
   z-index: 1000;
 }
 
-/*Animações*/
-
+/* Animações */
 @keyframes pulse-btn {
     0% {
         opacity: 1;
     }
-
     50% {
         opacity: 0.5;
     }
-
     100% {
         opacity: 1;
     }
 }
 
-
-@keyframes pulse-btn {
-    /* ... sua animação ... */
-}
-
-
+/* Media Query para telas pequenas (smartphones) */
 @media screen and (max-width: 768px) {
-    /* Remove a linha 'display: none;' que impedia a sidebar de aparecer. */
-    /* .sidebar {
-        display: none;
-    } */
-
+    /* Exibe o botão de menu */
     .menu-toggle {
-      display: block;
+        display: block;
+    }
+
+    /* Corrige o layout da dashboard para telas pequenas */
+    .container {
+        /* Garante que o conteúdo não seja esmagado pela sidebar */
+        width: 100vw;
+        padding-top: 50px; /* Adiciona um padding para o conteúdo não ficar atrás do botão */
+    }
+
+    .session-agent {
+      /* Garante que o conteúdo não se espalhe */
+      padding: 0 10px;
+    }
+    
+    .card-agent {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .button-adicionar {
+        width: 100px;
+        font-size: 1em;
+        margin-right: 10px;
     }
 }

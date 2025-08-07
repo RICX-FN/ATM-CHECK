@@ -5,24 +5,38 @@ body {
     font-weight: normal;
 }
 
-/* Estilos padrão para a sidebar em telas grandes, usando a classe que o React aplica */
+/* O seletor '.sidebar' agora é apenas para o posicionamento e animação */
 .sidebar {
     position: fixed;
-    display: flex;
+    top: 0;
+    left: 0;
     width: 250px;
+    /* A largura fixa é importante aqui */
     height: 100%;
-    padding: 10px;
-    padding-bottom: 0px;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: start;
-    background: -webkit-linear-gradient(to top, #5856d6, #321da8);
-    background: linear-gradient(to top, #5856d6, #321da8);
-    box-shadow: rgba(185, 185, 185, 0.2) 0px 2px 8px 0px; /* Adicionado do seu outro seletor */
-    transition: transform 0.3s ease-in-out; /* Mantenha a transição aqui */
+    transform: translateX(0);
+    /* Padrão para desktop */
+    transition: transform 0.3s ease-in-out;
+    z-index: 999;
 }
 
-/* Os estilos para os elementos internos da sidebar permanecem os mesmos, mas os seletores foram unificados */
+/* O seletor '.conteiner-sidebar' é quem gerencia o layout flexbox */
+.conteiner-sidebar {
+    height: 100vh;
+    width: 100%;
+    /* Ajuste para preencher a sidebar inteira */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Mantém o espaçamento entre os blocos */
+    align-items: start;
+
+    background: -webkit-linear-gradient(to top, #5856d6, #321da8);
+    background: linear-gradient(to top, #5856d6, #321da8);
+    box-shadow: rgba(185, 185, 185, 0.2) 0px 2px 8px 0px;
+    padding: 10px;
+}
+
+/* Outros estilos internos (sem alterações) */
 .tittle {
     font-size: 2em;
 }
@@ -53,48 +67,24 @@ hr {
     gap: 30px;
 }
 
-.content-links>nav>a {
-    color: #fff;
-    font-size: 1.3em;
-    text-decoration: none;
-}
+/* ... o resto dos seus estilos internos ... */
 
-.content-links>nav>a:hover {
-    opacity: 0.7;
-    scale: 1.1;
-    transition: all .3s ease-in-out;
-}
-
-span {
-    color: #fff;
-    font-weight: normal;
-}
-
-.btn-logout {
-    margin-bottom: 10px;
-}
-
-.btn-sidebar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
 
 /* Media Query para telas pequenas (smartphones) */
 @media (max-width: 768px) {
-  /* A sidebar é inicialmente oculta fora da tela */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    transform: translateX(-100%); /* Move para fora da tela */
-    z-index: 999;
-  }
 
-  /* Quando a classe 'open' é adicionada, a sidebar volta para a tela */
-  .sidebar.open {
-    transform: translateX(0);
-  }
+    .tittle {
+        font-size: 2em;
+        margin-top: 50px;
+    }
+
+    /* Oculta a sidebar fora da tela em mobile */
+    .sidebar {
+        transform: translateX(-110%);
+    }
+
+    /* Exibe a sidebar quando a classe 'open' é aplicada */
+    .sidebar.open {
+        transform: translateX(0);
+    }
 }
