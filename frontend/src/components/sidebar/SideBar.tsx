@@ -28,17 +28,17 @@ function SideBar({ userEmail, isOpen }: SideBarProps) {
             <p className='navegacao'>Navegação</p>
 
             <Link to="/" className='btn-sidebar'>
-              {(MdSupportAgent as any)({ size: 25, style: { color: '#fff', transition: '.7s ease;' } }) as ReactElement}
+              {(MdSupportAgent as any)({ size: 25, style: { margin: '-6px 1px', color: '#fff', transition: '.7s ease;' } }) as ReactElement}
               <span className='icon-sidebar'>Agentes</span>
             </Link>
 
             <Link to="/" className='btn-sidebar'>
-              {(FaLocationDot as any)({ size: 25, style: { color: '#fff', transition: '.7s ease;' } }) as ReactElement}
+              {(FaLocationDot as any)({ size: 25, style: { margin: '-6px 1px', color: '#fff', transition: '.7s ease;' } }) as ReactElement}
               <span className='icon-sidebar'>Rotas</span>
             </Link>
 
             <Link to="/" className='btn-sidebar'>
-              {(IoNotifications as any)({ size: 25, style: { color: '#fff', transition: '.7s ease;' } }) as ReactElement}
+              {(IoNotifications as any)({ size: 25, style: { margin: '-6px 1px', color: '#fff', transition: '.7s ease;' } }) as ReactElement}
               <span className='icon-sidebar'>Notificações</span>
             </Link>
           </nav>
