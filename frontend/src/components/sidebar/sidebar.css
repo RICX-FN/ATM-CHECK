@@ -59,6 +59,10 @@ hr {
     margin: 0px;
 }
 
+.btn-sidebar {
+    text-decoration: none;
+}
+
 .content-links>nav {
     display: flex;
     flex-direction: column;
