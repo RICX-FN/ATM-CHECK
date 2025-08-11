@@ -1,22 +1,37 @@
-// PasswordInput.tsx
-import React from 'react';
-import '../../styles/login-global.css';
+import React, { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import "./PasswordInput.css";
 
-type PasswordInputProps = React.InputHTMLAttributes<HTMLInputElement>;
+interface PasswordInputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
-  ({ placeholder = "Senha", className = "", ...rest }, ref) => {
-    return (
-      <div className={`password-input ${className}`}>
-        <input
-          type="password"
-          ref={ref}
-          placeholder={placeholder}
-          {...rest}
-        />
-      </div>
-    );
-  }
-);
+const PasswordInput: React.FC<PasswordInputProps> = (props) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const EyeIcon = showPassword
+    ? (FaEyeSlash as any)({
+        size: 20,
+        style: {color: "black", transition: ".3s ease" },
+      })
+    : (FaEye as any)({
+        size: 20,
+        style: {color: "gray", transition: ".3s ease" },
+      });
+
+  return (
+    <div className="password-wrapper">
+      <input
+        {...props}
+        type={showPassword ? "text" : "password"}
+        className="password-input"
+      />
+      <span
+        className={`eye-icon ${showPassword ? "active" : ""}`}
+        onClick={() => setShowPassword((prev) => !prev)}
+      >
+        {EyeIcon}
+      </span>
+    </div>
+  );
+};
 
 export default PasswordInput;
