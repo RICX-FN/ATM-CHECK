@@ -5,7 +5,7 @@ import './emailinput.css';
 type EmailInputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 const EmailInput = React.forwardRef<HTMLInputElement, EmailInputProps>(
-  ({ placeholder = "exemplo@gmail.com", className = "", ...rest }, ref) => {
+  ({ placeholder = "Exemplo@gmail.com", className = "", ...rest }, ref) => {
     return (
       <div className={`email-input ${className}`}>
         <input

@@ -23,6 +23,7 @@ const PasswordInput: React.FC<PasswordInputProps> = (props) => {
         {...props}
         type={showPassword ? "text" : "password"}
         className="password-input"
+        placeholder="Digite sua senha."
       />
       <span
         className={`eye-icon ${showPassword ? "active" : ""}`}
