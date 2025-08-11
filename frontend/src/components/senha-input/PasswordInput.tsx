@@ -10,11 +10,11 @@ const PasswordInput: React.FC<PasswordInputProps> = (props) => {
   const EyeIcon = showPassword
     ? (FaEyeSlash as any)({
         size: 20,
-        style: {color: "black", transition: ".3s ease" },
+        style: {color: "#fff", transition: ".3s ease" },
       })
     : (FaEye as any)({
         size: 20,
-        style: {color: "gray", transition: ".3s ease" },
+        style: {color: "#fff", transition: ".3s ease" },
       });
 
   return (
