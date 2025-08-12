@@ -2,7 +2,6 @@
 
 import '../sidebar/sidebar.css';
 import { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
 import BtnLogout from '../btn-logout/BtnLogout';
 import { MdSupportAgent } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
@@ -11,13 +10,12 @@ import { IoNotifications } from "react-icons/io5";
 interface SideBarProps {
   userEmail: string | null;
   isOpen: boolean;
+  onTabChange: (tab: 'agent' | 'routes' | 'notifications') => void;
 }
 
-function SideBar({ userEmail, isOpen }: SideBarProps) {
+function SideBar({ userEmail, isOpen, onTabChange }: SideBarProps) {
   return (
-    // A classe 'sidebar' controla a animação e o posicionamento
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-      {/* A classe 'conteiner-sidebar' controla o layout flexbox interno */}
       <div className="conteiner-sidebar">
         <div className="content-perfil">
           <h3 className='tittle'>Dashboard</h3>
@@ -27,20 +25,20 @@ function SideBar({ userEmail, isOpen }: SideBarProps) {
           <nav>
             <p className='navegacao'>Navegação</p>
 
-            <Link to="/" className='btn-sidebar'>
+            <button className='btn-sidebar' onClick={() => onTabChange('agent')}>
               {(MdSupportAgent as any)({ size: 25, style: { margin: '-6px 1px', color: '#fff', transition: '.7s ease;' } }) as ReactElement}
               <span className='icon-sidebar'>Agentes</span>
-            </Link>
+            </button>
 
-            <Link to="/" className='btn-sidebar'>
+            <button className='btn-sidebar' onClick={() => onTabChange('routes')}>
               {(FaLocationDot as any)({ size: 25, style: { margin: '-6px 1px', color: '#fff', transition: '.7s ease;' } }) as ReactElement}
               <span className='icon-sidebar'>Rotas</span>
-            </Link>
+            </button>
 
-            <Link to="/" className='btn-sidebar'>
+            <button className='btn-sidebar' onClick={() => onTabChange('notifications')}>
               {(IoNotifications as any)({ size: 25, style: { margin: '-6px 1px', color: '#fff', transition: '.7s ease;' } }) as ReactElement}
               <span className='icon-sidebar'>Notificações</span>
-            </Link>
+            </button>
           </nav>
         </div>
 

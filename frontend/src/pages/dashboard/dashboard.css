@@ -10,6 +10,7 @@
     display: flex;
     width: 100vw;
     justify-content: center;
+    margin-left: 145px; /* ajuste para compensar largura da sidebar fixa */
 }
 
 .session-agent {
@@ -24,8 +25,8 @@
     padding: 10px;
     width: 70vw;
     height: 30px;
-    margin-left: 700px;
-    margin-right: 450px;
+    margin-left: 0; /* retirado offset fixo */
+    margin-right: 0; /* retirado offset fixo */
     margin-top: 40px;
     border-radius: 10px;
     background-color: #ffffff3b;
@@ -85,7 +86,7 @@
     width: 150px;
     position: absolute;
     bottom: 40px;
-    margin-right: 450px;
+    right: 40px; /* substitui margin-right fixa */
     font-weight: normal;
     animation: pulse-btn 2s infinite;
     background: -webkit-linear-gradient(90deg, #5856d6, #321da8);
@@ -138,7 +139,7 @@
         /* Garante que o conteúdo não seja esmagado pela sidebar */
         width: 100vw;
         padding-top: 50px;
-        /* Adiciona um padding para o conteúdo não ficar atrás do botão */
+        margin-left: 0; /* reseta deslocamento da sidebar */
     }
 
     .session-agent {
@@ -156,5 +157,6 @@
         width: 90%;
         font-size: 1em;
         margin-right: 10px;
+        right: auto; /* remove alinhamento absoluto no mobile */
     }
 }
