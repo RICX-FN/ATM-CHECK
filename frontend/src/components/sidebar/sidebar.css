@@ -75,6 +75,11 @@ hr {
     color: #321da8;
 }
 
+.btn-sidebar svg,
+.btn-sidebar .icon-sidebar {
+    transition: color 0.4s ease;
+}
+
 .btn-sidebar:hover {
     color: #ffffff7a;
     scale: 1.05;
