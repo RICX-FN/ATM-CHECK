@@ -71,8 +71,11 @@ hr {
     font-size: 1.3em;
 }
 
+.btn-sidebar:active {
+    color: #321da8;
+}
 
-.btn-sidebar :hover {
+.btn-sidebar:hover {
     color: #ffffff7a;
     scale: 1.05;
     transition: all .3s ease;

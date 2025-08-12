@@ -59,7 +59,7 @@ function Dashboard() {
 
         {activeTab === 'routes' && (
           <section className='routes'>
-            <h3>Lista de Rotas</h3>
+            <h3>Rotas</h3>
             {/* Conteúdo das rotas */}
           </section>
         )}
