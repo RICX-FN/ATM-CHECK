@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Sideagent from '../../components/agente-sidebar/Sideagent';
+import '../agent/agent.css';
 
 function Agent() {
   const [userEmail, setUserEmail] = useState<string | null>(null);
@@ -31,7 +32,39 @@ function Agent() {
       <div className='container'>
         {activeTab === 'agent' && (
           <section className='session-agent'>
-              <h3>agent</h3>
+
+              <div className="container-agent">
+
+                <p className='id-user-agent'>ID: user{}</p>
+                <h3 className='uni-box'>Unidades: {}</h3>
+
+                <div className="box-card">
+                  <div className="card">
+                    <h1 className='value-sistem'>0</h1>
+                    <p className='description'>Descrição</p>
+                  </div>
+
+                  <div className="card">
+                    <h1 className='value-val'>0</h1>
+                    <p className='description'>Descrição</p>
+                  </div>
+
+                  <div className="card">
+                    <h1 className='value-papel'>0</h1>
+                    <p className='description'>Descrição</p>
+                  </div>
+
+                  <div className="card">
+                    <h1 className='value-lsc'>0</h1>
+                    <p className='description'>Descrição</p>
+                  </div>
+                </div>
+
+              </div>
+
+                <div className="field-btn">
+                  <button className='btn-aplicar'>Aplicar</button>
+                </div>
           </section>
         )}
 
