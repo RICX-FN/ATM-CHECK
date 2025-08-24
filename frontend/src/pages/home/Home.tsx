@@ -14,7 +14,7 @@ function Home() {
 
       <div className="header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div className="logo">
-          <h1 className='title-page' style={{ margin: "10px", fontSize: "1.8em", fontWeight: "900" }}>ATM CHECK</h1>
+          <h1 className='title-page' style={{ margin: "10px", fontSize: "1.5em", fontWeight: "900" }}>ATM CHECK</h1>
         </div>
 
         <div className="menu" style={{ display: "flex", gap: "10px", margin: "10px", border: "1px solid #321da8b0", borderRadius: "30px", background: "#aca4db38", padding: "5px" }}>
