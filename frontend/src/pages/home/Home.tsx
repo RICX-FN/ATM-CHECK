@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../home/home.css';
+import { hover } from '@testing-library/user-event/dist/hover';
 
 
 function Home() {
@@ -9,33 +10,46 @@ function Home() {
   }, []);
 
   return (
-    <div className="Home">
+    <div style={{ background: "#070416e0", width: "100%", height: "100dvh" }}>
 
-      <main>
-        <div className="conteiner">
-          <div className='titulo'>
-            <h1 className='atmcheck'>ATM CHECK</h1>
-          </div>
-
-          <div className='btn-conteiner'>
-            <Link to="/login-admin" className='btn-session-admin'>Admin</Link>
-
-            <Link to="/login-agent" className='btn-session-agent'>Agente</Link>
-          </div>
-
-          <p className='p-explore'>Explore nossa Plataforma <strong>ATM CHECK</strong> e descubra os <strong>melhores </strong>pontos de Caixa Eletronico.</p>
-
-          <div className="link-client">
-            <a href="/destino">CHECAR AGORA</a>
-          </div>
-
+      <div className="header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className="logo">
+          <h1 className='title-page' style={{ margin: "10px", fontSize: "1.8em", fontWeight: "900" }}>ATM CHECK</h1>
         </div>
 
-      </main>
+        <div className="menu" style={{ display: "flex", gap: "10px", margin: "10px", border: "1px solid #321da8b0", borderRadius: "30px", background: "#aca4db38", padding: "5px" }}>
 
-      <footer className='footer-home'>
-        <p className='copyright'>&copy; 2025 Css no Backend. Todos direitos reservados.</p>
-      </footer>
+          <Link to="/login-admin" style={{ textDecoration: "none", fontWeight: "bold", color: "#fff", padding: "10px", borderRadius: "30px" }}>Admin</Link>
+
+          <Link to="/login-agent" style={{ textDecoration: "none", fontWeight: "bold", color: "#fff", background: "radial-gradient(circle,rgba(88, 86, 214, 1) 0%, rgba(50, 29, 168, 1) 100%)", padding: "10px 20px", borderRadius: "30px" }}>Agent</Link>
+        </div>
+
+      </div>
+
+      <div className="inicio" style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}>
+        <h2 className='text-inicio' style={{ fontSize: "1.8em", color: "#5856D6", textAlign: "center", width: "310px" }}>
+          Encontre os pontos de ATM com menos filas proximos de ti.
+        </h2>
+      </div>
+
+      <p style={{ color: "#fff", textAlign: "center" }}>Encontre agora mesmo.</p>
+
+      <div className="session-client" style={{ display: "flex", justifyContent: "center" }}>
+        <Link to="/login-admin"
+          style={{
+            cursor: "not-allowed",
+            textDecoration: "none",
+            fontWeight: "bold",
+            color: "#fff",
+            background: "radial-gradient(circle,rgba(88, 86, 214, 1) 0%, rgba(50, 29, 168, 1) 100%)",
+            padding: "10px",
+            borderRadius: "30px",
+            width: "210px",
+            textAlign: "center",
+            boxShadow: " #321da85e 0px 4px 24px"
+          }}>CHECAR</Link>
+
+      </div>
 
     </div>
   );
