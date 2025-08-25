@@ -27,19 +27,23 @@ body {
   height: 100dvh;
 }
 
-.image-particula {
-  display: flex;
-  justify-content: center;
+.particulas {
   width: 100%;
   height: 70dvh;
-  z-index: -1;
+  z-index: 0;
   position: fixed;
-  top: -90px;
+  top: 10px;
   opacity: 0.7;
   background:
     radial-gradient(circle at 10% 20%, var(--color-primary) 0%, transparent 20%),
     radial-gradient(circle at 90% 80%, var(--color-second) 0%, transparent 20%),
     #07041600;
+    animation: pulse-particulas 3s ease-in-out infinite;
+}
+
+.image-search{
+  display: flex;
+  justify-content: center;
 }
 
 .title-page {
@@ -52,7 +56,11 @@ body {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: text-shine 3s linear infinite;
+}
 
+.btn-lg-admin:hover {
+  background-color: #5856d68f;
+  transition: background-color .25s ease-in-out;
 }
 
 .session-iniciar {
@@ -60,14 +68,6 @@ body {
 }
 
 .session-image {
-  animation: introduction-text .8s ease-in forwards;
-}
-
-.text-inicio {
-  /* Inicia com opacidade zero para a animação de introdução */
-  opacity: 0;
-
-  /* Combina as duas animações na mesma propriedade */
   animation: introduction-text .8s ease-in forwards;
 }
 
@@ -90,8 +90,21 @@ body {
   }
 }
 
-@keyframes pulsar-checar {
-  
+@keyframes pulse-particulas{
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: .7;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* .Home {
