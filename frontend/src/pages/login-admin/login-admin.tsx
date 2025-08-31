@@ -58,9 +58,9 @@ function LoginAdmin() {
 
   return (
     <div className="LoginAdmin">
-      <div className="conteiner-login">
+      <div className="container-login">
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <h1>ATM CHECK</h1>
+          <h1 className="title-login">ATM CHECK</h1>
           <p className='quemsou'>Admin, faça login.</p>
 
           <div className={`input-group ${errors.email ? 'input-error' : ''}`}>
