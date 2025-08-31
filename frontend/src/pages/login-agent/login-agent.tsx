@@ -7,7 +7,7 @@ import EmailInput from '../../components/email-input/EmailInput';
 import PasswordInput from '../../components/senha-input/PasswordInput';
 
 type LoginForm = {
-  email: string;
+  usuario: string;
   senha: string;
 };
 
@@ -25,7 +25,7 @@ function LoginAgent() {
     setErro("");
 
     try {
-      const response = await fetch("https://backend-atm-check.onrender.com/auth/agentes/login", {
+      const response = await fetch("https://backend-atm-check.onrender.com/agentes/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -45,7 +45,7 @@ function LoginAgent() {
       document.cookie = `token=${result.token}; path=/; max-age=86400`;
 
       // 👉 NOVA LINHA: Salva o email do usuário no localStorage
-      localStorage.setItem("userEmail", data.email);
+      localStorage.setItem("userEmail", data.usuario);
 
       navigate("/agent");
     } catch (error: any) {
@@ -63,9 +63,9 @@ function LoginAgent() {
           <h1 className="title-login">ATM CHECK</h1>
           <p className='quemsou'>Agent, faça login.</p>
 
-          <div className={`input-group ${errors.email ? 'input-error' : ''}`}>
-            <EmailInput {...register("email", { required: "Email é obrigatório." })} />
-            {errors.email && <span className="erro-msg-email">{errors.email.message}</span>}
+          <div className={`input-group ${errors.usuario ? 'input-error' : ''}`}>
+            <EmailInput {...register("usuario", { required: "Email é obrigatório." })} />
+            {errors.usuario && <span className="erro-msg-email">{errors.usuario.message}</span>}
           </div>
 
           <div className={`input-group ${errors.senha ? 'input-error' : ''}`}>
