@@ -3,8 +3,8 @@ import Home from "../pages/home/Home";
 import LoginAdmin from "../pages/login-admin/login-admin";
 import LoginAgent from "../pages/login-agent/login-agent";
 import Dashboard from "../pages/dashboard/Dashboard";
-import PrivateRoute from "../components/PrivateRoute";
 import Agent from "../pages/agent/Agent";
+import PrivateRoute from "../components/PrivateRoute";
 
 export default function ATMRoutes() {
   return (
