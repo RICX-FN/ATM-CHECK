@@ -11,4 +11,5 @@ const PrivateRoute = ({ children }: Props): ReactElement => {
   return token ? <>{children}</> : <Navigate to="/login-admin" />;
 };
 
+
 export default PrivateRoute;

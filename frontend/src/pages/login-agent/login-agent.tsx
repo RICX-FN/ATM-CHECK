@@ -31,6 +31,7 @@ function LoginAgent() {
         body: JSON.stringify(data),
       });
 
+      // Passo 1: Verifique se a resposta não foi bem-sucedida.
       if (!response.ok) {
         if (response.status === 401) {
           throw new Error("Credenciais inválidas. Tente novamente.");
@@ -39,12 +40,21 @@ function LoginAgent() {
         }
       }
 
+      // Passo 2: Verifique o tipo de conteúdo da resposta.
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        // Se não for JSON, trate como um erro ou falha inesperada.
+        const errorText = await response.text();
+        console.error("Resposta do servidor não é JSON:", errorText);
+        throw new Error("Resposta inesperada do servidor. Tente novamente mais tarde.");
+      }
+
+      // Passo 3: Se tudo estiver ok, processe o JSON.
       const result = await response.json();
 
       // Armazena o token no cookie
       document.cookie = `token=${result.token}; path=/; max-age=86400`;
 
-      // 👉 NOVA LINHA: Salva o email do usuário no localStorage
       localStorage.setItem("userUsuario", data.usuario);
 
       navigate("/agent");
