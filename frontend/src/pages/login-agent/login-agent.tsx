@@ -64,7 +64,7 @@ function LoginAgent() {
           <p className='quemsou'>Agent, faça login.</p>
 
           <div className={`input-group ${errors.usuario ? 'input-error' : ''}`}>
-            <EmailInput {...register("usuario", { required: "Email é obrigatório." })} />
+            <EmailInput {...register("usuario", { required: "Usuario obrigatorio." })} type="text" placeholder="Digite seu usuário"/>
             {errors.usuario && <span className="erro-msg-email">{errors.usuario.message}</span>}
           </div>
 
