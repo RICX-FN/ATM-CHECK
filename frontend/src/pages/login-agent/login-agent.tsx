@@ -45,7 +45,7 @@ function LoginAgent() {
       document.cookie = `token=${result.token}; path=/; max-age=86400`;
 
       // 👉 NOVA LINHA: Salva o email do usuário no localStorage
-      localStorage.setItem("userEmail", data.usuario);
+      localStorage.setItem("userUsuario", data.usuario);
 
       navigate("/agent");
     } catch (error: any) {
