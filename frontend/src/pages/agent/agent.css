@@ -1,11 +1,15 @@
 .Agent {
     background-color: #070416d8;
-    height: 100vh;
+    height: 100%;
 }
 
 .session-agent {
     padding: 0;
     margin: 15px;
+}
+
+.container {
+    height: 100dvh;
 }
 
 .container-agent {
@@ -146,9 +150,11 @@
 .field-papel,
 .field-lsc {
     padding: 10px;
+    margin-bottom: 60px;
     border-radius: 7px;
     background-color: #ffffff71;
     border: none;
+    width: 40%;
     color: #ffffffd7;
     font-weight: normal;
     font-size: 1.1em;
@@ -165,7 +171,7 @@ option {
 }
 
 .field-info-card {
-    width: 85vw;
+    width: 80vw;
 }
 
 @keyframes smoth {
