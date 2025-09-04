@@ -29,6 +29,11 @@
     padding: 15px 0px 15px 15px;
 }
 
+.val-sistem, .val-papel, .val-lsc, .val-value {
+    text-align: center;
+    font-size: 15pt;
+}
+
 .uni-box {
     font-size: 2em;
     font-weight: bold;
