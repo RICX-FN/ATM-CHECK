@@ -31,7 +31,6 @@ function LoginAgent() {
         body: JSON.stringify(data),
       });
 
-      // Passo 1: Verifique se a resposta não foi bem-sucedida.
       if (!response.ok) {
         if (response.status === 401) {
           throw new Error("Credenciais inválidas. Tente novamente.");
@@ -40,22 +39,28 @@ function LoginAgent() {
         }
       }
 
-      // Passo 2: Verifique o tipo de conteúdo da resposta.
       const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
-        // Se não for JSON, trate como um erro ou falha inesperada.
         const errorText = await response.text();
         console.error("Resposta do servidor não é JSON:", errorText);
         throw new Error("Resposta inesperada do servidor. Tente novamente mais tarde.");
       }
 
-      // Passo 3: Se tudo estiver ok, processe o JSON.
       const result = await response.json();
 
-      // Armazena o token no cookie
-      document.cookie = `token=${result.token}; path=/; max-age=86400`;
+      if (result.token) {
+        document.cookie = `token=${result.token}; path=/; max-age=86400`;
+      }
 
-      localStorage.setItem("userUsuario", data.usuario);
+      if (result.id) {
+        localStorage.setItem("userId", result.id);
+      }
+      if (result.usuario) {
+        localStorage.setItem("userUsuario", result.usuario);
+      }
+      if (result.email) {
+        localStorage.setItem("userEmail", result.email);
+      }
 
       navigate("/agent");
     } catch (error: any) {
@@ -74,12 +79,18 @@ function LoginAgent() {
           <p className='quemsou'>Agent, faça login.</p>
 
           <div className={`input-group ${errors.usuario ? 'input-error' : ''}`}>
-            <EmailInput {...register("usuario", { required: "Usuario obrigatorio." })} type="text" placeholder="Digite seu usuário" />
+            <EmailInput
+              {...register("usuario", { required: "Usuario obrigatorio." })}
+              type="text"
+              placeholder="Digite seu usuário"
+            />
             {errors.usuario && <span className="erro-msg-email">{errors.usuario.message}</span>}
           </div>
 
           <div className={`input-group ${errors.senha ? 'input-error' : ''}`}>
-            <PasswordInput {...register("senha", { required: "Senha é obrigatória." })} />
+            <PasswordInput
+              {...register("senha", { required: "Senha é obrigatória." })}
+            />
             {errors.senha && <span className="erro-msg-senha">{errors.senha.message}</span>}
           </div>
 
