@@ -7,10 +7,11 @@ import { MdSupportAgent } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { IoNotifications } from "react-icons/io5";
 
+
 interface SideBarProps {
   userEmail: string | null;
   isOpen: boolean;
-  activeTab: 'agent' | 'routes' | 'notifications';
+  activeTab: 'agent' | 'routes' | 'notifications' | 'home';
   onTabChange: (tab: 'agent' | 'routes' | 'notifications') => void;
 }
 
@@ -19,12 +20,10 @@ function SideBar({ userEmail, isOpen, activeTab, onTabChange }: SideBarProps) {
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="conteiner-sidebar">
 
-        {/* Título */}
         <div className="content-perfil">
           <h3 className='tittle'>Dashboard</h3>
         </div>
 
-        {/* Navegação */}
         <div className="content-links">
           <nav>
             <p className='navegacao'>Navegação</p>
@@ -67,6 +66,7 @@ function SideBar({ userEmail, isOpen, activeTab, onTabChange }: SideBarProps) {
                 Notificações
               </span>
             </button>
+
           </nav>
         </div>
 

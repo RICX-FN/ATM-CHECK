@@ -11,7 +11,7 @@ import { ReactElement } from 'react';
 function Dashboard() {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'agent' | 'routes' | 'notifications'>('agent');
+  const [activeTab, setActiveTab] = useState<'agent' | 'routes' | 'notifications' | 'home'>('agent');
 
   useEffect(() => {
     const email = localStorage.getItem('userEmail');
