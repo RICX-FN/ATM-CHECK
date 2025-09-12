@@ -119,8 +119,9 @@ function Home() {
             }}>
             <p className='slogan' style={{
               textAlign: "center",
-              marginTop: "10px",
-              fontWeight: "300",
+              marginTop: "30px",
+              fontSize: "14pt",
+              fontWeight: "500",
               width: "300px",
               color: "var(--color-primary)"
               }}>
