@@ -8,7 +8,7 @@ type Props = {
 
 const PrivateRoute = ({ children }: Props): ReactElement => {
   const token = getTokenFromCookies();
-  return token ? <>{children}</> : <Navigate to="/login-admin" />;
+  return token ? <>{children}</> : <Navigate to="/login-agent" />;
 };
 
 
