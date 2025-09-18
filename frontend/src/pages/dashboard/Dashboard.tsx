@@ -21,9 +21,15 @@ function Dashboard() {
   const [activeTab, setActiveTab] = useState<'agent' | 'routes' | 'notifications' | 'home'>('agent');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    senha: ''
+    agente: {
+      nome: '',
+      usuario: '',
+      senha: '',
+      localizacao: '',
+      latitude: '',
+      longitude: ''
+    },
+    numeroDeAtms: ''
   });
   const [loading, setLoading] = useState(false);
   const [agents, setAgents] = useState<Agent[]>([]);
@@ -40,11 +46,11 @@ function Dashboard() {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       if (!response.ok) {
         throw new Error('Erro ao buscar agentes');
       }
-      
+
       const data = await response.json();
       setAgents(data);
     } catch (error) {
@@ -68,14 +74,35 @@ function Dashboard() {
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setFormData({ nome: '', email: '', senha: '' });
+    setFormData({
+      agente: {
+        nome: '',
+        usuario: '',
+        senha: '',
+        localizacao: '',
+        latitude: '',
+        longitude: ''
+      },
+      numeroDeAtms: ''
+    });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    if (name === 'numeroDeAtms') {
+      setFormData({
+        ...formData,
+        [name]: value
+      } as any);
+    } else {
+      setFormData({
+        ...formData,
+        agente: {
+          ...formData.agente,
+          [name]: value
+        }
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -91,14 +118,20 @@ function Dashboard() {
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          nome: formData.nome,
-          email: formData.email,
-          senha: formData.senha,
+          agente: {
+            nome: formData.agente.nome,
+            usuario: formData.agente.usuario,
+            senha: formData.agente.senha,
+            localizacao: formData.agente.localizacao,
+            latitude: Number(formData.agente.latitude),
+            longitude: Number(formData.agente.longitude)
+          },
+          numeroDeAtms: Number(formData.numeroDeAtms)
         })
       });
 
       const data = await response.json().catch(() => null);
-      
+
       if (!response.ok) {
         throw new Error(data?.message || 'Erro ao cadastrar usuário');
       }
@@ -127,9 +160,8 @@ function Dashboard() {
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />
-
-      <div className='container'>
-                {activeTab === 'agent' && (
+      <div className='container-dashboard'>
+        {activeTab === 'agent' && (
           <section className='session-agent'>
             {isLoadingAgents ? (
               <div className="loading-spinner">Carregando...</div>
@@ -180,44 +212,99 @@ function Dashboard() {
         overlayClassName="modal-overlay"
         ariaHideApp={false}
       >
-        <div className="modal-header">
-          <h2>Novo Agente</h2>
-          <button onClick={handleCloseModal} className="close-button">×</button>
-        </div>
         <form onSubmit={handleSubmit} className="modal-form">
+          <h2 style={{textAlign:"right"}}>Novo Agente</h2>
           <div className="form-group">
             <label htmlFor="nome">Nome</label>
             <input
               type="text"
               id="nome"
               name="nome"
-              value={formData.nome}
+              placeholder='Fulano'
+              value={formData.agente.nome}
               onChange={handleInputChange}
               required
             />
           </div>
+
           <div className="form-group">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="usuario">Usuário</label>
             <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
+              type="text"
+              id="usuario"
+              name="usuario"
+              placeholder="apelido ou login"
+              value={formData.agente.usuario}
               onChange={handleInputChange}
               required
             />
           </div>
+
           <div className="form-group">
-            <label htmlFor="senha">Senha:</label>
+            <label htmlFor="senha">Senha</label>
             <input
               type="password"
               id="senha"
               name="senha"
-              value={formData.senha}
+              placeholder="********"
+              value={formData.agente.senha}
               onChange={handleInputChange}
               required
             />
           </div>
+
+          <div className="form-group">
+            <label htmlFor="localizacao">Localização</label>
+            <input
+              type="text"
+              id="localizacao"
+              name="localizacao"
+              placeholder="Cidade / Endereço"
+              value={formData.agente.localizacao}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="latitude">Latitude</label>
+              <input
+                type="number"
+                step="any"
+                id="latitude"
+                name="latitude"
+                placeholder="-23.0000"
+                value={formData.agente.latitude}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="longitude">Longitude</label>
+              <input
+                type="number"
+                step="any"
+                id="longitude"
+                name="longitude"
+                placeholder="-46.0000"
+                value={formData.agente.longitude}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="numeroDeAtms">Número de ATMs</label>
+            <input
+              type="number"
+              id="numeroDeAtms"
+              name="numeroDeAtms"
+              placeholder="0"
+              value={formData.numeroDeAtms}
+              onChange={handleInputChange}
+            />
+          </div>
+
           <div className="modal-buttons">
             <button type="submit" disabled={loading}>
               {loading ? 'Cadastrando...' : 'Cadastrar'}

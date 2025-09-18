@@ -2,15 +2,17 @@
 
 .Dashboard {
     background-color: #070416e7;
-    width: 100%;
+    padding: 0px;
+    width: 100dvw;
     height: 100dvh;
 }
 
-.container {
+.container-dashboard {
+    padding: 0px;
+    margin-top: 60px;
     display: flex;
-    width: 100dvw;
+    position: fixed;
     justify-content: center;
-    margin-left: 145px; /* ajuste para compensar largura da sidebar fixa */
 }
 
 .session-agent {
@@ -25,11 +27,10 @@
     align-items: center;
     padding: 10px;
     width: 70vw;
-    height: 30px;
     margin-left: 0; /* retirado offset fixo */
     margin-right: 0; /* retirado offset fixo */
-    margin-top: 40px;
-    border-radius: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
     background-color: #ffffff3b;
     box-shadow: rgba(185, 185, 185, 0.2) 0px 2px 8px 0px;
 }
@@ -44,27 +45,17 @@
     gap: 20px;
 }
 
-.btn-edit,
-.btn-del {
+.btn-edit {
     background-color: transparent;
-    color: #fff;
     border: none;
     cursor: pointer;
+    color: #5033f7;
 }
-
-.btn-edit:hover,
-.btn-del:hover {
-    scale: 1.1;
-    color: #ffffff62;
-    transition: all .3s ease;
-}
-
-.btn-edit:hover {
-    color: #321DA8;
-}
-
-.btn-del:hover {
+.btn-del {
+    background-color: transparent;
     color: red;
+    border: none;
+    cursor: pointer;
 }
 
 .id-agent {
@@ -80,14 +71,11 @@
 .button-adicionar {
     padding: 15px;
     color: #fff;
-    font-size: 1.2em;
     border: none;
     cursor: pointer;
     border-radius: 10px;
-    width: 150px;
     position: absolute;
-    bottom: 40px;
-    right: 40px; /* substitui margin-right fixa */
+    bottom: -650px;
     font-weight: normal;
     animation: pulse-btn 2s infinite;
     background: -webkit-linear-gradient(90deg, #5856d6, #321da8);
@@ -134,52 +122,14 @@
     align-items: center;
 }
 
-.modal-content {
-    background-color: #ffffff3b;
-    padding: 15px;
-    border-radius: 10px;
-    width: 80%;
-    height: 400px;
-    color: white;
-    box-shadow: rgba(185, 185, 185, 0.2) 0px 2px 8px 0px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    position: relative;
-}
-
-.close-button {
-    position: absolute;
-    top: -18px;
-    right: -22px;
-    background: linear-gradient(90deg, #5856d6, #321da8);
-    border: none;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    color: white;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .close-button:hover {
     scale: 1.1;
     transition: all .3s ease;
 }
 
 .modal-form {
-    margin-left: -15px;
+    background-color: #000000;
+    width: 100dvw;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -199,7 +149,7 @@
 }
 
 .form-group input {
-    width: 80%;
+    width: 80dvw;
     padding: 8px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 4px;
@@ -213,7 +163,6 @@
 }
 
 .modal-buttons {
-    margin-left: -40px;
     display: flex;
     gap: 10px;
     justify-content: flex-end;
