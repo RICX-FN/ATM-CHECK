@@ -164,7 +164,7 @@ function Dashboard() {
         {activeTab === 'agent' && (
           <section className='session-agent'>
             {isLoadingAgents ? (
-              <div className="loading-spinner">Carregando...</div>
+              <div className="loading-spinner" style={{ textAlign: "center" }}>Carregando...</div>
             ) : agentsError ? (
               <div className="error-message">{agentsError}</div>
             ) : agents.length === 0 ? (
@@ -173,7 +173,7 @@ function Dashboard() {
               <>
                 {agents.map((agent) => (
                   <div key={agent.id} className="card-agent">
-                    <p className='id-agent'>id:{agent.id}</p>
+                    <p className='id-agent'>id: {agent.id}</p>
                     <p className='id-agent'>{agent.nome}</p>
                     <p className='id-agent'>{agent.email}</p>
                     <div className='btn-crud'>
@@ -213,7 +213,7 @@ function Dashboard() {
         ariaHideApp={false}
       >
         <form onSubmit={handleSubmit} className="modal-form">
-          <h2 style={{textAlign:"right"}}>Novo Agente</h2>
+          <h2 style={{ textAlign: "right" }}>Novo Agente</h2>
           <div className="form-group">
             <label htmlFor="nome">Nome</label>
             <input
