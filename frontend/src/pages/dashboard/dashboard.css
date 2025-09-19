@@ -114,6 +114,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px; /* ensure spacing on small screens */
+    overflow-y: auto; /* allow overlay to scroll when modal taller than viewport */
 }
 
 .close-button:hover {
@@ -123,12 +125,15 @@
 
 .modal-form {
     background-color: #000000;
-    width: 100dvw;
+    width: min(90vw, 480px); /* keep modal compact */
+    max-height: 90vh; /* limit height so it doesn't overflow the viewport */
+    overflow-y: auto; /* enable internal scrolling when content is tall */
+    padding: 18px; /* add padding so fields are not flush */
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    flex: 1;
-    justify-content: center;
+    gap: 10px;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 20px;
 }
 
 .form-group {
@@ -143,7 +148,7 @@
 }
 
 .form-group input {
-    width: 80dvw;
+    width: 100%; /* use modal width rather than viewport units */
     padding: 8px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 4px;
@@ -154,6 +159,15 @@
 .form-group input:focus {
     outline: none;
     border-color: #5856d6;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+.form-row .form-group {
+    flex: 1;
 }
 
 .modal-buttons {

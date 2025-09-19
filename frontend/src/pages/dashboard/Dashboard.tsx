@@ -213,7 +213,7 @@ function Dashboard() {
         ariaHideApp={false}
       >
         <form onSubmit={handleSubmit} className="modal-form">
-          <h2 style={{ textAlign: "right" }}>Novo Agente</h2>
+          <h2 style={{ marginTop:"30px"}}>Novo Agente</h2>
           <div className="form-group">
             <label htmlFor="nome">Nome</label>
             <input
@@ -224,6 +224,7 @@ function Dashboard() {
               value={formData.agente.nome}
               onChange={handleInputChange}
               required
+              style={{width:"90dvw"}}
             />
           </div>
 
@@ -237,6 +238,7 @@ function Dashboard() {
               value={formData.agente.usuario}
               onChange={handleInputChange}
               required
+              style={{width:"90dvw"}}
             />
           </div>
 
@@ -250,6 +252,7 @@ function Dashboard() {
               value={formData.agente.senha}
               onChange={handleInputChange}
               required
+              style={{width:"90dvw"}}
             />
           </div>
 
@@ -262,6 +265,7 @@ function Dashboard() {
               placeholder="Cidade / Endereço"
               value={formData.agente.localizacao}
               onChange={handleInputChange}
+              style={{width:"90dvw"}}
             />
           </div>
 
@@ -276,6 +280,7 @@ function Dashboard() {
                 placeholder="-23.0000"
                 value={formData.agente.latitude}
                 onChange={handleInputChange}
+                style={{ width: '80%' }}
               />
             </div>
 
@@ -289,6 +294,7 @@ function Dashboard() {
                 placeholder="-46.0000"
                 value={formData.agente.longitude}
                 onChange={handleInputChange}
+                style={{ width: '80%' }}
               />
             </div>
           </div>
@@ -302,10 +308,11 @@ function Dashboard() {
               placeholder="0"
               value={formData.numeroDeAtms}
               onChange={handleInputChange}
+              style={{width:"90dvw"}}
             />
           </div>
 
-          <div className="modal-buttons">
+          <div className="modal-buttons" style={{ marginBottom:"20px" }}>
             <button type="submit" disabled={loading}>
               {loading ? 'Cadastrando...' : 'Cadastrar'}
             </button>
