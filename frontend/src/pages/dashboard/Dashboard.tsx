@@ -6,10 +6,19 @@ import Button from '../../components/button/Button';
 import { MdMenu } from "react-icons/md";
 import Modal from 'react-modal';
 import SearchBar from '../../components/barra-pesquisa/SearchBar';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 interface Agent {
   id: number;
   nome?: string;
   email?: string;
+  usuario?: string;
+  senha?: string;
+  localizacao?: string;
+  latitude?: number;
+  longitude?: number;
+  numeroDeAtms?: number;
 }
 
 function Dashboard() {
@@ -17,6 +26,7 @@ function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'agent' | 'routes' | 'notifications' | 'home'>('agent');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingAgent, setEditingAgent] = useState<Agent | null>(null);
   const [formData, setFormData] = useState({
     agente: {
       nome: '',
@@ -33,6 +43,10 @@ function Dashboard() {
   const [isLoadingAgents, setIsLoadingAgents] = useState(true);
   const [agentsError, setAgentsError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // novo state para confirmação
+  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+
   const fetchAgents = async () => {
     setIsLoadingAgents(true);
     setAgentsError(null);
@@ -68,9 +82,14 @@ function Dashboard() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const handleOpenModal = () => setIsModalOpen(true);
+  const handleOpenModal = () => {
+    setEditingAgent(null);
+    setIsModalOpen(true);
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setEditingAgent(null);
     setFormData({
       agente: {
         nome: '',
@@ -102,14 +121,21 @@ function Dashboard() {
     }
   };
 
+  // Cadastrar ou editar
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('https://backend-atm-check.onrender.com/agentes/cadastro?adminId=2', {
-        method: 'POST',
+      const url = editingAgent
+        ? `https://backend-atm-check.onrender.com/agentes/${editingAgent.id}`
+        : `https://backend-atm-check.onrender.com/agentes/cadastro?adminId=2`;
+
+      const method = editingAgent ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -130,18 +156,72 @@ function Dashboard() {
       const data = await response.json().catch(() => null);
 
       if (!response.ok) {
-        throw new Error(data?.message || 'Erro ao cadastrar usuário');
+        throw new Error(data?.message || 'Erro ao salvar usuário');
       }
 
-      alert('Usuário cadastrado com sucesso!');
+      toast.success(editingAgent ? 'Usuário atualizado com sucesso!' : 'Usuário cadastrado com sucesso!');
       handleCloseModal();
       fetchAgents(); 
     } catch (error) {
       console.error('Erro:', error);
-      alert(error instanceof Error ? error.message : 'Erro ao cadastrar usuário');
+      toast.error(error instanceof Error ? error.message : 'Erro ao salvar usuário');
     } finally {
       setLoading(false);
     }
+  };
+
+  // abrir modal de confirmação
+  const openConfirmDelete = (id: number) => {
+    setConfirmDeleteId(id);
+  };
+
+  // fechar modal
+  const closeConfirmDelete = () => {
+    setConfirmDeleteId(null);
+  };
+
+  // confirmar exclusão
+  const confirmDelete = async () => {
+    if (!confirmDeleteId) return;
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`https://backend-atm-check.onrender.com/agentes/${confirmDeleteId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao excluir agente');
+      }
+
+      toast.success("Agente excluído com sucesso!");
+      fetchAgents();
+    } catch (error) {
+      console.error("Erro ao excluir agente:", error);
+      toast.error(error instanceof Error ? error.message : "Erro ao excluir agente");
+    } finally {
+      closeConfirmDelete();
+    }
+  };
+
+  // Prepara edição
+  const handleEdit = (agent: Agent) => {
+    setEditingAgent(agent);
+    setFormData({
+      agente: {
+        nome: agent.nome || '',
+        usuario: agent.usuario || '',
+        senha: agent.senha || '',
+        localizacao: agent.localizacao || '',
+        latitude: agent.latitude?.toString() || '',
+        longitude: agent.longitude?.toString() || ''
+      },
+      numeroDeAtms: agent.numeroDeAtms?.toString() || ''
+    });
+    setIsModalOpen(true);
   };
 
   const filteredAgents = agents.filter(agent => {
@@ -168,7 +248,7 @@ function Dashboard() {
       <div className='container-dashboard'>
         {activeTab === 'agent' && (
           <section className='session-agent'>
-            <SearchBar onSearch={setSearchQuery} /> {/* Barra de pesquisa */}
+            <SearchBar onSearch={setSearchQuery} />
 
             {isLoadingAgents ? (
               <div className="loading-spinner" style={{ textAlign: "center" }}>Carregando...</div>
@@ -184,8 +264,13 @@ function Dashboard() {
                     <p className='id-agent'>{agent.nome}</p>
                     <p className='id-agent'>{agent.email}</p>
                     <div className='btn-crud'>
-                      <button className='btn-edit'>Editar</button>
-                      <button className='btn-del'>Excluir</button>
+                      <button className='btn-edit' onClick={() => handleEdit(agent)}>Editar</button>
+                      <button 
+                        className='btn-del'
+                        onClick={() => openConfirmDelete(agent.id)}
+                      >
+                        Excluir
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -210,7 +295,7 @@ function Dashboard() {
         )}
       </div>
 
-      {/* Modal de cadastro */}
+      {/* Modal de cadastro/edição */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
@@ -219,7 +304,7 @@ function Dashboard() {
         ariaHideApp={false}
       >
         <form onSubmit={handleSubmit} className="modal-form">
-          <h2 style={{ marginTop:"30px"}}>Novo Agente</h2>
+          <h2 style={{ marginTop:"30px"}}>{editingAgent ? "Editar Agente" : "Novo Agente"}</h2>
 
           <div className="form-group">
             <label htmlFor="nome">Nome</label>
@@ -321,7 +406,7 @@ function Dashboard() {
 
           <div className="modal-buttons" style={{ marginBottom:"20px" }}>
             <button type="submit" disabled={loading}>
-              {loading ? 'Cadastrando...' : 'Cadastrar'}
+              {loading ? (editingAgent ? 'Atualizando...' : 'Cadastrando...') : (editingAgent ? 'Atualizar' : 'Cadastrar')}
             </button>
             <button type="button" onClick={handleCloseModal}>
               Cancelar
@@ -329,6 +414,36 @@ function Dashboard() {
           </div>
         </form>
       </Modal>
+
+      {/* Modal de confirmação de exclusão */}
+      <Modal
+        isOpen={confirmDeleteId !== null}
+        onRequestClose={closeConfirmDelete}
+        className="modal-content"
+        overlayClassName="modal-overlay"
+        ariaHideApp={false}
+      >
+        <div style={{ textAlign: "center", padding: "20px" }}>
+          <h3>Tem certeza que deseja excluir este agente?</h3>
+          <div style={{ marginTop: "20px", display: "flex", gap: "15px", justifyContent: "center" }}>
+            <button 
+              onClick={confirmDelete} 
+              style={{ background: "#e74c3c", color: "white", padding: "8px 16px", borderRadius: "6px", border: "none", cursor: "pointer" }}
+            >
+              Excluir
+            </button>
+            <button 
+              onClick={closeConfirmDelete} 
+              style={{ background: "#ccc", padding: "8px 16px", borderRadius: "6px", border: "none", cursor: "pointer" }}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      {/* Toast Container */}
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }
