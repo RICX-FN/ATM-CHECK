@@ -1,18 +1,15 @@
 // src/pages/dashboard/Dashboard.tsx
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import '../dashboard/dashboard.css';
 import SideBar from '../../components/sidebar/SideBar';
 import Button from '../../components/button/Button';
-import { MdOutlineEdit, MdMenu } from "react-icons/md";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { ReactElement } from 'react';
+import { MdMenu } from "react-icons/md";
 import Modal from 'react-modal';
-
+import SearchBar from '../../components/barra-pesquisa/SearchBar';
 interface Agent {
   id: number;
-  nome: string;
-  email: string;
+  nome?: string;
+  email?: string;
 }
 
 function Dashboard() {
@@ -35,7 +32,7 @@ function Dashboard() {
   const [agents, setAgents] = useState<Agent[]>([]);
   const [isLoadingAgents, setIsLoadingAgents] = useState(true);
   const [agentsError, setAgentsError] = useState<string | null>(null);
-
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const fetchAgents = async () => {
     setIsLoadingAgents(true);
     setAgentsError(null);
@@ -64,7 +61,7 @@ function Dashboard() {
   useEffect(() => {
     const email = localStorage.getItem('userEmail');
     setUserEmail(email);
-    fetchAgents(); // Busca os agentes quando o componente monta
+    fetchAgents(); 
   }, []);
 
   const toggleSidebar = () => {
@@ -138,7 +135,7 @@ function Dashboard() {
 
       alert('Usuário cadastrado com sucesso!');
       handleCloseModal();
-      fetchAgents(); // Atualiza a lista de agentes
+      fetchAgents(); 
     } catch (error) {
       console.error('Erro:', error);
       alert(error instanceof Error ? error.message : 'Erro ao cadastrar usuário');
@@ -147,13 +144,21 @@ function Dashboard() {
     }
   };
 
+  const filteredAgents = agents.filter(agent => {
+    const query = searchQuery.toLowerCase();
+    return (
+      (agent.nome ?? '').toLowerCase().includes(query) ||
+      (agent.email ?? '').toLowerCase().includes(query) ||
+      agent.id.toString().includes(query)
+    );
+  });
+
   return (
     <div className="Dashboard">
       <button className="menu-toggle" onClick={toggleSidebar}>
         {(MdMenu as any)({ size: 30 }) as ReactElement}
       </button>
 
-      {/* Agora passando activeTab para o SideBar */}
       <SideBar
         userEmail={userEmail}
         isOpen={isSidebarOpen}
@@ -163,15 +168,17 @@ function Dashboard() {
       <div className='container-dashboard'>
         {activeTab === 'agent' && (
           <section className='session-agent'>
+            <SearchBar onSearch={setSearchQuery} /> {/* Barra de pesquisa */}
+
             {isLoadingAgents ? (
               <div className="loading-spinner" style={{ textAlign: "center" }}>Carregando...</div>
             ) : agentsError ? (
               <div className="error-message">{agentsError}</div>
-            ) : agents.length === 0 ? (
-              <div className="no-agents-message">Nenhum agente cadastrado</div>
+            ) : filteredAgents.length === 0 ? (
+              <div className="no-agents-message">Nenhum agente encontrado</div>
             ) : (
               <>
-                {agents.map((agent) => (
+                {filteredAgents.map((agent) => (
                   <div key={agent.id} className="card-agent">
                     <p className='id-agent'>id: {agent.id}</p>
                     <p className='id-agent'>{agent.nome}</p>
@@ -193,18 +200,17 @@ function Dashboard() {
         {activeTab === 'routes' && (
           <section className='routes'>
             <h3>Rotas</h3>
-            {/* Conteúdo das rotas */}
           </section>
         )}
 
         {activeTab === 'notifications' && (
           <section className="notifications">
             <h3>Notificações</h3>
-            {/* Conteúdo das notificações */}
           </section>
         )}
       </div>
 
+      {/* Modal de cadastro */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={handleCloseModal}
@@ -214,6 +220,7 @@ function Dashboard() {
       >
         <form onSubmit={handleSubmit} className="modal-form">
           <h2 style={{ marginTop:"30px"}}>Novo Agente</h2>
+
           <div className="form-group">
             <label htmlFor="nome">Nome</label>
             <input
