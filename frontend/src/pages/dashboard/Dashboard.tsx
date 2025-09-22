@@ -75,7 +75,7 @@ function Dashboard() {
   useEffect(() => {
     const email = localStorage.getItem('userEmail');
     setUserEmail(email);
-    fetchAgents(); 
+    fetchAgents();
   }, []);
 
   const toggleSidebar = () => {
@@ -161,7 +161,7 @@ function Dashboard() {
 
       toast.success(editingAgent ? 'Usuário atualizado com sucesso!' : 'Usuário cadastrado com sucesso!');
       handleCloseModal();
-      fetchAgents(); 
+      fetchAgents();
     } catch (error) {
       console.error('Erro:', error);
       toast.error(error instanceof Error ? error.message : 'Erro ao salvar usuário');
@@ -250,22 +250,23 @@ function Dashboard() {
           <section className='session-agent'>
             <SearchBar onSearch={setSearchQuery} />
 
-            {isLoadingAgents ? (
-              <div className="loading-spinner" style={{ textAlign: "center" }}>Carregando...</div>
-            ) : agentsError ? (
-              <div className="error-message">{agentsError}</div>
-            ) : filteredAgents.length === 0 ? (
-              <div className="no-agents-message">Nenhum agente encontrado</div>
-            ) : (
-              <>
-                {filteredAgents.map((agent) => (
+            {/* Container fixo para resultados */}
+            <div className="results-container">
+              {isLoadingAgents ? (
+                <div className="loading-spinner">Carregando...</div>
+              ) : agentsError ? (
+                <div className="error-message">{agentsError}</div>
+              ) : filteredAgents.length === 0 ? (
+                <div className="no-agents-message">Nenhum agente encontrado</div>
+              ) : (
+                filteredAgents.map((agent) => (
                   <div key={agent.id} className="card-agent">
                     <p className='id-agent'>id: {agent.id}</p>
                     <p className='id-agent'>{agent.nome}</p>
                     <p className='id-agent'>{agent.email}</p>
                     <div className='btn-crud'>
                       <button className='btn-edit' onClick={() => handleEdit(agent)}>Editar</button>
-                      <button 
+                      <button
                         className='btn-del'
                         onClick={() => openConfirmDelete(agent.id)}
                       >
@@ -273,9 +274,10 @@ function Dashboard() {
                       </button>
                     </div>
                   </div>
-                ))}
-              </>
-            )}
+                ))
+              )}
+            </div>
+
             <div className="btn-add">
               <Button className="button-adicionar" label='Adicionar' onClick={handleOpenModal} />
             </div>
@@ -304,7 +306,7 @@ function Dashboard() {
         ariaHideApp={false}
       >
         <form onSubmit={handleSubmit} className="modal-form">
-          <h2 style={{ marginTop:"30px"}}>{editingAgent ? "Editar Agente" : "Novo Agente"}</h2>
+          <h2 style={{ marginTop: "30px" }}>{editingAgent ? "Editar Agente" : "Novo Agente"}</h2>
 
           <div className="form-group">
             <label htmlFor="nome">Nome</label>
@@ -316,7 +318,7 @@ function Dashboard() {
               value={formData.agente.nome}
               onChange={handleInputChange}
               required
-              style={{width:"90dvw"}}
+              style={{ width: "90dvw" }}
             />
           </div>
 
@@ -330,7 +332,7 @@ function Dashboard() {
               value={formData.agente.usuario}
               onChange={handleInputChange}
               required
-              style={{width:"90dvw"}}
+              style={{ width: "90dvw" }}
             />
           </div>
 
@@ -344,7 +346,7 @@ function Dashboard() {
               value={formData.agente.senha}
               onChange={handleInputChange}
               required
-              style={{width:"90dvw"}}
+              style={{ width: "90dvw" }}
             />
           </div>
 
@@ -357,7 +359,7 @@ function Dashboard() {
               placeholder="Cidade / Endereço"
               value={formData.agente.localizacao}
               onChange={handleInputChange}
-              style={{width:"90dvw"}}
+              style={{ width: "90dvw" }}
             />
           </div>
 
@@ -400,11 +402,11 @@ function Dashboard() {
               placeholder="0"
               value={formData.numeroDeAtms}
               onChange={handleInputChange}
-              style={{width:"90dvw"}}
+              style={{ width: "90dvw" }}
             />
           </div>
 
-          <div className="modal-buttons" style={{ marginBottom:"20px" }}>
+          <div className="modal-buttons" style={{ marginBottom: "20px" }}>
             <button type="submit" disabled={loading}>
               {loading ? (editingAgent ? 'Atualizando...' : 'Cadastrando...') : (editingAgent ? 'Atualizar' : 'Cadastrar')}
             </button>
@@ -426,14 +428,14 @@ function Dashboard() {
         <div style={{ textAlign: "center", padding: "20px" }}>
           <h3>Tem certeza que deseja excluir este agente?</h3>
           <div style={{ marginTop: "20px", display: "flex", gap: "15px", justifyContent: "center" }}>
-            <button 
-              onClick={confirmDelete} 
+            <button
+              onClick={confirmDelete}
               style={{ background: "#e74c3c", color: "white", padding: "8px 16px", borderRadius: "6px", border: "none", cursor: "pointer" }}
             >
               Excluir
             </button>
-            <button 
-              onClick={closeConfirmDelete} 
+            <button
+              onClick={closeConfirmDelete}
               style={{ background: "#ccc", padding: "8px 16px", borderRadius: "6px", border: "none", cursor: "pointer" }}
             >
               Cancelar
