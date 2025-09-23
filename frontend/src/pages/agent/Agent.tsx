@@ -18,8 +18,8 @@ function Agent() {
   // Estados para os valores dos cards
   const [sistemaValue, setSistemaValue] = useState<number>(0);
   const [valoresValue, setValoresValue] = useState<number>(0);
-  const [papelValue, setPapelValue] = useState<string>("Disponivel"); // Valor inicial
-  const [lscValue, setLscValue] = useState<string>("Indisponivel"); // Valor inicial
+  const [papelValue, setPapelValue] = useState<string>("Com papel");
+  const [lscValue, setLscValue] = useState<string>("Sem Levantamento");
 
   useEffect(() => {
     const email = localStorage.getItem("userEmail");
@@ -37,8 +37,6 @@ function Agent() {
   };
 
   const handleAplicar = () => {
-    // Aqui você pode adicionar a lógica para salvar os valores, se necessário
-    // Por enquanto, apenas fechamos o formulário de edição após aplicar.
     setShowBtn(false);
     alert("Valores aplicados!");
   };
@@ -61,50 +59,43 @@ function Agent() {
           <section className="session-agent">
             <div className="container-agent">
               <p className="user-agent">
-                <strong>Bem-Vindo(a):</strong> {userUsuario ? userUsuario : "Não definido"}
+                <strong>Bem-Vindo(a):</strong>{" "}
+                {userUsuario ? userUsuario : "Não definido"}
               </p>
-              <h3 className="uni-box">Unidades: { }</h3>{" "}
-              {/* Mantido conforme original */}
+              <h3 className="uni-box">Unidades:</h3>
+
+              {/* Cards */}
               <div className="box-card">
                 <div className="card">
                   <h1 className="value-sistem">{sistemaValue}</h1>
                   <hr style={{ width: "auto", marginTop: "10px" }} />
-                  <p className="description" style={{ paddingTop: "3px" }}>
-                    Sistema
-                  </p>
+                  <p className="description">Sistema</p>
                 </div>
 
                 <div className="card">
                   <h1 className="value-val">{valoresValue}</h1>
                   <hr style={{ width: "auto", marginTop: "10px" }} />
-                  <p className="description" style={{ paddingTop: "3px" }}>
-                    Valores
-                  </p>
+                  <p className="description">Valores</p>
                 </div>
 
                 <div className="card">
                   <h1 className="value-papel" style={{ fontSize: "14pt" }}>
-                    {papelValue === "Disponivel"
-                      ? "Indisponivel"
-                      : "Indisponivel"}
-                  </h1>{" "}
-                  {/* Exibe o texto do select */}
+                    {papelValue}
+                  </h1>
                   <hr style={{ width: "auto", marginTop: "10px" }} />
-                  <p className="description" style={{ paddingTop: "3px" }}>
-                    Papel
-                  </p>
+                  <p className="description">Papel</p>
                 </div>
 
                 <div className="card">
                   <h1 className="value-lsc" style={{ fontSize: "14pt" }}>
-                    {lscValue === "Disponivel" ? "Disponivel" : "Indisponivel"}
+                    {lscValue}
                   </h1>
                   <hr style={{ width: "auto", marginTop: "10px" }} />
-                  <p className="description" style={{ paddingTop: "3px" }}>
-                    L. sem cartão
-                  </p>
+                  <p className="description">L. sem cartão</p>
                 </div>
               </div>
+
+              {/* Botão Editar */}
               <div className="edit-icon">
                 <button className="btn-edit-field" onClick={handleShowBtnEdit}>
                   {
@@ -115,7 +106,8 @@ function Agent() {
                   }
                 </button>
               </div>
-              {/* campos de informação dos cards*/}
+
+              {/* Formulário */}
               <div
                 className="info-field"
                 style={{ display: showBtn ? "flex" : "none" }}
@@ -123,19 +115,47 @@ function Agent() {
                 <hr className="hr-info-field" />
                 <p className="info-cards">Preencha o formulário</p>
 
+                {/* Linha 1 - Sistema / Valores */}
                 <div className="field-label-select">
-                  <label className="papel" htmlFor="papel-id">
-                    Sistema
-                  </label>
-                  <label className="lsc" htmlFor="papel-id">
-                    Valores
-                  </label>
+                  <label htmlFor="sistema-id">Sistema</label>
+                  <label htmlFor="valores-id">Valores</label>
+                </div>
+                <div className="field-select">
+                  <select
+                    className="field-numero"
+                    id="sistema-id"
+                    value={sistemaValue}
+                    onChange={(e) => setSistemaValue(Number(e.target.value))}
+                  >
+                    {[0, 1, 2, 3, 4].map((num) => (
+                      <option key={num} value={num}>
+                        {num}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    className="field-numero"
+                    id="valores-id"
+                    value={valoresValue}
+                    onChange={(e) => setValoresValue(Number(e.target.value))}
+                  >
+                    {[0, 1, 2, 3, 4].map((num) => (
+                      <option key={num} value={num}>
+                        {num}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
+                {/* Linha 2 - Papel / LSC */}
+                <div className="field-label-select">
+                  <label htmlFor="papel-id">Papel</label>
+                  <label htmlFor="lsc-id">L. sem cartão</label>
+                </div>
                 <div className="field-select">
                   <select
                     className="field-papel"
-                    name="papel"
                     id="papel-id"
                     value={papelValue}
                     onChange={(e) => setPapelValue(e.target.value)}
@@ -146,40 +166,6 @@ function Agent() {
 
                   <select
                     className="field-lsc"
-                    name="papel"
-                    id="lsc-id"
-                    value={lscValue}
-                    onChange={(e) => setLscValue(e.target.value)}
-                  >
-                    <option value="Sem Levantamento">Sem Levantamento</option>
-                    <option value="Com Levantamento">Com Levantamento</option>
-                  </select>
-                </div>
-
-                <div className="field-label-select">
-                  <label className="papel" htmlFor="papel-id">
-                    Papel
-                  </label>
-                  <label className="lsc" htmlFor="papel-id">
-                    L.Sem cartão
-                  </label>
-                </div>
-
-                <div className="field-select">
-                  <select
-                    className="field-papel"
-                    name="papel"
-                    id="papel-id"
-                    value={papelValue}
-                    onChange={(e) => setPapelValue(e.target.value)}
-                  >
-                    <option value="Com papel">Com papel</option>
-                    <option value="Sem papel">Sem papel</option>
-                  </select>
-
-                  <select
-                    className="field-lsc"
-                    name="papel"
                     id="lsc-id"
                     value={lscValue}
                     onChange={(e) => setLscValue(e.target.value)}
