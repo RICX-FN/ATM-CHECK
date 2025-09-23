@@ -63,7 +63,7 @@ function Agent() {
               <p className="user-agent">
                 <strong>Bem-Vindo(a):</strong> {userUsuario ? userUsuario : "Não definido"}
               </p>
-              <h3 className="uni-box">Unidades: {}</h3>{" "}
+              <h3 className="uni-box">Unidades: { }</h3>{" "}
               {/* Mantido conforme original */}
               <div className="box-card">
                 <div className="card">
@@ -120,22 +120,41 @@ function Agent() {
                 className="info-field"
                 style={{ display: showBtn ? "flex" : "none" }}
               >
-                <hr className="hr-info-field"/>
+                <hr className="hr-info-field" />
                 <p className="info-cards">Preencha o formulário</p>
-                <input
-                  className="field-info-card"
-                  placeholder="Sistema"
-                  type="number"
-                  value={sistemaValue}
-                  onChange={(e) => setSistemaValue(Number(e.target.value))}
-                />
-                <input
-                  className="field-info-card"
-                  placeholder="Valores"
-                  type="number"
-                  value={valoresValue}
-                  onChange={(e) => setValoresValue(Number(e.target.value))}
-                />
+
+                <div className="field-label-select">
+                  <label className="papel" htmlFor="papel-id">
+                    Sistema
+                  </label>
+                  <label className="lsc" htmlFor="papel-id">
+                    Valores
+                  </label>
+                </div>
+
+                <div className="field-select">
+                  <select
+                    className="field-papel"
+                    name="papel"
+                    id="papel-id"
+                    value={papelValue}
+                    onChange={(e) => setPapelValue(e.target.value)}
+                  >
+                    <option value="Com papel">Com papel</option>
+                    <option value="Sem papel">Sem papel</option>
+                  </select>
+
+                  <select
+                    className="field-lsc"
+                    name="papel"
+                    id="lsc-id"
+                    value={lscValue}
+                    onChange={(e) => setLscValue(e.target.value)}
+                  >
+                    <option value="Sem Levantamento">Sem Levantamento</option>
+                    <option value="Com Levantamento">Com Levantamento</option>
+                  </select>
+                </div>
 
                 <div className="field-label-select">
                   <label className="papel" htmlFor="papel-id">
