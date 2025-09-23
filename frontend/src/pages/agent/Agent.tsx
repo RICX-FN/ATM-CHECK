@@ -60,8 +60,8 @@ function Agent() {
         {activeTab === "agent" && (
           <section className="session-agent">
             <div className="container-agent">
-              <p className="id-user-agent">
-                ID: {userUsuario ? userUsuario : "Não definido"}
+              <p className="user-agent">
+                <strong>Bem-Vindo(a):</strong> {userUsuario ? userUsuario : "Não definido"}
               </p>
               <h3 className="uni-box">Unidades: {}</h3>{" "}
               {/* Mantido conforme original */}
@@ -120,6 +120,7 @@ function Agent() {
                 className="info-field"
                 style={{ display: showBtn ? "flex" : "none" }}
               >
+                <hr className="hr-info-field"/>
                 <p className="info-cards">Preencha o formulário</p>
                 <input
                   className="field-info-card"

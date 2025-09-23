@@ -5,7 +5,7 @@
 
 .session-agent {
     padding: 0;
-    margin: 15px;
+    margin: 5px;
 }
 
 .container {
@@ -25,10 +25,11 @@
     background-color: #5856d6be;
 }
 
-.id-user-agent {
+.user-agent {
     font-size: .8em;
     font-weight: 300;
-    text-align: left;
+    text-align: center;
+    margin-right: 10px;
     color: #ffffffa8;
     padding: 15px 0px 15px 15px;
 }
@@ -118,6 +119,10 @@
     z-index: 1000;
 }
 
+.hr-info-field {
+    width: 88dvw;
+    margin: 5px;
+}
 
 .info-field {
     display: none;
@@ -129,7 +134,7 @@
 
 .field-label-select {
     display: flex;
-    gap: 90px;
+    gap: 99px;
     margin-top: 10px;
 }
 
@@ -147,14 +152,28 @@
 }
 
 
-.field-papel,
-.field-lsc {
+.field-papel {
     padding: 10px;
     margin-bottom: 60px;
     border-radius: 7px;
     background-color: #ffffff71;
     border: none;
     width: 40%;
+    color: #ffffffd7;
+    font-weight: normal;
+    font-size: 1.1em;
+    outline: none;
+    margin-right: 10px;
+ }
+
+
+.field-lsc {
+    padding: 10px;
+    margin-bottom: 60px;
+    border-radius: 7px;
+    background-color: #ffffff71;
+    border: none;
+    width: 50%;
     color: #ffffffd7;
     font-weight: normal;
     font-size: 1.1em;
