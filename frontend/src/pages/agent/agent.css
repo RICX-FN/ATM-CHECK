@@ -20,8 +20,8 @@
   width: 97dvw;
   height: auto;
   padding-bottom: 10px;
-  border-radius: 7px;
-  background-color: #5856d6be;
+  border-radius: 15px;
+  background-color: #5856d6b2;
   overflow: hidden;
 }
 
@@ -30,7 +30,7 @@
   font-weight: 400;
   text-align: center;
   margin-right: 10px;
-  color: #ffffffa8;
+  color: #ffffffc2;
   padding: 15px 0px 15px 15px;
 }
 
@@ -40,18 +40,20 @@
 .value-val {
   text-align: center;
   font-size: 30pt;
+  color: #fff;
 }
 
 .uni-box {
   font-size: 1.7em;
   font-weight: bold;
   text-align: left;
-  padding: 15px 0px 15px 30px;
+  color: #fff;
+  padding: 15px 0px 15px 15px;
 }
 
 .box-card {
   display: grid;
-  grid-template-columns: repeat(2, 40%);
+  grid-template-columns: repeat(2, 45%);
   gap: 15px;
   justify-content: center;
 }
@@ -59,7 +61,7 @@
 .card {
   background-color: var(--color-second);
   padding: 5px;
-  border-radius: 7px;
+  border-radius: 15px;
   height: 100px;
   display: flex;
   flex-direction: column;
@@ -69,7 +71,8 @@
 
 .description {
   text-align: center;
-  font-weight: normal;
+  font-weight: 900;
+  color: #ffffffa1;
 }
 
 .edit-icon {
@@ -77,7 +80,7 @@
   justify-content: flex-end;
   margin-top: 10px;
   margin-right: 10px;
-  padding: 10px 30px 0px 0px;
+  padding: 10px 10px 0px 0px;
   color: #fff;
 }
 
@@ -100,7 +103,7 @@
   font-size: 1em;
   border: none;
   background-color: var(--color-second);
-  border-radius: 10px;
+  border-radius: 15px;
   cursor: pointer;
 }
 

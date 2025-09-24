@@ -69,13 +69,13 @@ function Agent() {
                 <div className="card">
                   <h1 className="value-sistem">{sistemaValue}</h1>
                   <hr style={{ width: "auto", marginTop: "5px", marginBottom:"5px"}} />
-                  <p className="description">Sistema</p>
+                  <p className="description">SISTEMA</p>
                 </div>
 
                 <div className="card">
                   <h1 className="value-val">{valoresValue}</h1>
                   <hr style={{ width: "auto", marginTop: "5px", marginBottom:"5px"}} />
-                  <p className="description">Valores</p>
+                  <p className="description">VALORES</p>
                 </div>
 
                 <div className="card">
@@ -83,7 +83,7 @@ function Agent() {
                     {papelValue}
                   </h1>
                   <hr style={{ width: "auto", marginTop: "25px", marginBottom:"5px"}} />
-                  <p className="description">Papel</p>
+                  <p className="description">PAPEL</p>
                 </div>
 
                 <div className="card">
