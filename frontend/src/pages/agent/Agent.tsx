@@ -2,7 +2,7 @@
 import { MdMenu } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
 import { ReactElement } from "react";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Sideagent from "../../components/agente-sidebar/Sideagent";
 import "../agent/agent.css";
 
@@ -68,13 +68,13 @@ function Agent() {
               <div className="box-card">
                 <div className="card">
                   <h1 className="value-sistem">{sistemaValue}</h1>
-                  <hr style={{ width: "auto", marginTop: "10px" }} />
+                  <hr style={{ width: "auto", marginTop: "5px", marginBottom:"5px"}} />
                   <p className="description">Sistema</p>
                 </div>
 
                 <div className="card">
                   <h1 className="value-val">{valoresValue}</h1>
-                  <hr style={{ width: "auto", marginTop: "10px" }} />
+                  <hr style={{ width: "auto", marginTop: "5px", marginBottom:"5px"}} />
                   <p className="description">Valores</p>
                 </div>
 
@@ -82,7 +82,7 @@ function Agent() {
                   <h1 className="value-papel" style={{ fontSize: "14pt" }}>
                     {papelValue}
                   </h1>
-                  <hr style={{ width: "auto", marginTop: "10px" }} />
+                  <hr style={{ width: "auto", marginTop: "25px", marginBottom:"5px"}} />
                   <p className="description">Papel</p>
                 </div>
 
@@ -90,8 +90,8 @@ function Agent() {
                   <h1 className="value-lsc" style={{ fontSize: "14pt" }}>
                     {lscValue}
                   </h1>
-                  <hr style={{ width: "auto", marginTop: "10px" }} />
-                  <p className="description">L. sem cartão</p>
+                  <hr style={{ width: "auto", marginTop: "5px", marginBottom:"5px" }} />
+                  <p className="description">LSC</p>
                 </div>
               </div>
 

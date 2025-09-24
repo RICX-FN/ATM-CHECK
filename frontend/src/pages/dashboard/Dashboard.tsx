@@ -257,7 +257,7 @@ function Dashboard() {
               ) : agentsError ? (
                 <div className="error-message">{agentsError}</div>
               ) : filteredAgents.length === 0 ? (
-                <div className="no-agents-message">Nenhum agente encontrado</div>
+                <div className="no-agents-message">Nenhum agente encontrado!</div>
               ) : (
                 filteredAgents.map((agent) => (
                   <div key={agent.id} className="card-agent">

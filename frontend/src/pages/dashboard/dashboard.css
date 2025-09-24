@@ -118,14 +118,9 @@
 
 .no-agents-message {
   text-align: center;
-  background: #6f42c1;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 10px;
+  color: red;
+  font-weight: 700;
   font-size: 16px;
-  opacity: 0.95;
-  margin: 0 auto;
-  max-width: 400px;
 }
 
 /* Modal Styles */
