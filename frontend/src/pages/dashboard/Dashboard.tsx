@@ -306,7 +306,7 @@ function Dashboard() {
         ariaHideApp={false}
       >
         <form onSubmit={handleSubmit} className="modal-form">
-          <h2 style={{ marginTop: "30px" }}>{editingAgent ? "Editar Agente" : "Novo Agente"}</h2>
+          <h2 style={{color:"#5856d6", marginTop: "30px" }}>{editingAgent ? "Editar Agente" : "Novo Agente"}</h2>
 
           <div className="form-group">
             <label htmlFor="nome">Nome</label>
