@@ -1,8 +1,7 @@
 // src/pages/dashboard/Dashboard.tsx
-import { MdMenu } from "react-icons/md";
-import { FiEdit } from "react-icons/fi";
-import { ReactElement } from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactElement } from 'react';
+import { MdMenu } from 'react-icons/md';
+import { FiEdit } from 'react-icons/fi';
 import Sideagent from "../../components/agente-sidebar/Sideagent";
 import "../agent/agent.css";
 
@@ -10,6 +9,7 @@ function Agent() {
   const [showBtn, setShowBtn] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userUsuario, setUserUsuario] = useState<string | null>(null);
+  const [atmId, setAtmId] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<
     "agent" | "routes" | "notifications"
@@ -24,9 +24,40 @@ function Agent() {
   useEffect(() => {
     const email = localStorage.getItem("userEmail");
     const usuario = localStorage.getItem("userUsuario");
+    const storedAtmId = localStorage.getItem("atmId");
     setUserEmail(email);
     setUserUsuario(usuario);
+    setAtmId(storedAtmId);
+
+    // se houver atmId, buscar dados do ATM para popular a tela
+    if (storedAtmId) {
+      fetchAtm(storedAtmId);
+    }
   }, []);
+
+  // Busca dados do ATM e popula os estados da tela
+  const fetchAtm = async (id: string) => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`https://backend-atm-check.onrender.com/atms/${id}`, {
+        headers: token ? { 'Authorization': `Bearer ${token}` } : undefined
+      });
+      if (!res.ok) {
+        console.error('Erro ao buscar ATM:', res.statusText);
+        return;
+      }
+      const data = await res.json().catch(() => null);
+      if (!data) return;
+
+      // mapear campos retornados para os estados locais (ajuste conforme a API)
+      if (typeof data.sistema === 'number') setSistemaValue(data.sistema);
+      if (typeof data.valores === 'number') setValoresValue(data.valores);
+      if (typeof data.papel === 'string') setPapelValue(data.papel);
+      if (typeof data.lsc === 'string') setLscValue(data.lsc);
+    } catch (err) {
+      console.error('Erro ao buscar ATM:', err);
+    }
+  };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -38,7 +69,39 @@ function Agent() {
 
   const handleAplicar = () => {
     setShowBtn(false);
-    alert("Valores aplicados!");
+    // se não houver atmId, apenas informar
+    if (!atmId) {
+      alert('ATM ID não definido. Alterações não foram enviadas.');
+      return;
+    }
+
+    // envia os estados atuais para a API
+    (async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const payload = {
+          sistema: sistemaValue,
+          valores: valoresValue,
+          papel: papelValue,
+          lsc: lscValue
+        };
+
+        const res = await fetch(`https://backend-atm-check.onrender.com/atms/${atmId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error('Erro ao atualizar ATM');
+        alert('Valores aplicados!');
+      } catch (err) {
+        console.error('Erro ao aplicar valores:', err);
+        alert('Erro ao aplicar valores');
+      }
+    })();
   };
 
   return (
@@ -68,13 +131,13 @@ function Agent() {
               <div className="box-card">
                 <div className="card">
                   <h1 className="value-sistem">{sistemaValue}</h1>
-                  <hr style={{ width: "auto", marginTop: "5px", marginBottom:"5px"}} />
+                  <hr style={{ width: "auto", marginTop: "5px", marginBottom: "5px" }} />
                   <p className="description">SISTEMA</p>
                 </div>
 
                 <div className="card">
                   <h1 className="value-val">{valoresValue}</h1>
-                  <hr style={{ width: "auto", marginTop: "5px", marginBottom:"5px"}} />
+                  <hr style={{ width: "auto", marginTop: "5px", marginBottom: "5px" }} />
                   <p className="description">VALORES</p>
                 </div>
 
@@ -82,7 +145,7 @@ function Agent() {
                   <h1 className="value-papel" style={{ fontSize: "14pt" }}>
                     {papelValue}
                   </h1>
-                  <hr style={{ width: "auto", marginTop: "25px", marginBottom:"5px"}} />
+                  <hr style={{ width: "auto", marginTop: "25px", marginBottom: "5px" }} />
                   <p className="description">PAPEL</p>
                 </div>
 
@@ -90,7 +153,7 @@ function Agent() {
                   <h1 className="value-lsc" style={{ fontSize: "14pt" }}>
                     {lscValue}
                   </h1>
-                  <hr style={{ width: "auto", marginTop: "5px", marginBottom:"5px" }} />
+                  <hr style={{ width: "auto", marginTop: "5px", marginBottom: "5px" }} />
                   <p className="description">LSC</p>
                 </div>
               </div>
