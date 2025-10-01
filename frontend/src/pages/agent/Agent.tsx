@@ -21,6 +21,11 @@ function Agent() {
   const [papelValue, setPapelValue] = useState<string>("Com papel");
   const [lscValue, setLscValue] = useState<string>("Sem Levantamento");
 
+  // estados para contagem de ATMs do agente logado
+  const [atmCount, setAtmCount] = useState<number | null>(null);
+  const [atmCountLoading, setAtmCountLoading] = useState<boolean>(false);
+  const [atmCountError, setAtmCountError] = useState<string | null>(null);
+
   useEffect(() => {
     const email = localStorage.getItem("userEmail");
     const usuario = localStorage.getItem("userUsuario");
@@ -28,6 +33,18 @@ function Agent() {
     setUserEmail(email);
     setUserUsuario(usuario);
     setAtmId(storedAtmId);
+
+    // tentar obter id do agente (várias chaves possíveis)
+    const storedAgentId =
+      localStorage.getItem("userId") ||
+      localStorage.getItem("agentId") ||
+      localStorage.getItem("id") ||
+      null;
+
+    // buscar contagem de ATMs do agente, se temos agentId
+    if (storedAgentId) {
+      fetchAgentAtmCount(storedAgentId);
+    }
 
     // se houver atmId, buscar dados do ATM para popular a tela
     if (storedAtmId) {
@@ -56,6 +73,45 @@ function Agent() {
       if (typeof data.lsc === 'string') setLscValue(data.lsc);
     } catch (err) {
       console.error('Erro ao buscar ATM:', err);
+    }
+  };
+
+  // Busca a contagem de ATMs para um agente
+  const fetchAgentAtmCount = async (id: string) => {
+    setAtmCountLoading(true);
+    setAtmCountError(null);
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`https://backend-atm-check.onrender.com/agentes/${id}/atm-count`, {
+        headers: token ? { 'Authorization': `Bearer ${token}` } : undefined
+      });
+
+      if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        throw new Error(text || `HTTP ${res.status}`);
+      }
+
+      const data = await res.json().catch(() => null);
+      if (data == null) throw new Error('Resposta inválida');
+
+      let count: number | null = null;
+      if (typeof data === 'number') count = data;
+      else if (typeof data.count === 'number') count = data.count;
+      else if (typeof data.numeroDeAtms === 'number') count = data.numeroDeAtms;
+      else if (typeof data.atmCount === 'number') count = data.atmCount;
+
+      if (count == null) {
+        const firstNum = Object.values(data).find(v => typeof v === 'number') as number | undefined;
+        if (firstNum !== undefined) count = firstNum;
+      }
+
+      if (count == null) throw new Error('Não foi possível determinar a contagem');
+      setAtmCount(count);
+    } catch (err: any) {
+      console.error('Erro ao buscar contagem de ATMs do agente:', err);
+      setAtmCountError(err.message || 'Erro ao buscar contagem');
+    } finally {
+      setAtmCountLoading(false);
     }
   };
 
@@ -125,7 +181,9 @@ function Agent() {
                 <strong>Bem-Vindo(a):</strong>{" "}
                 {userUsuario ? userUsuario : "Não definido"}
               </p>
-              <h3 className="uni-box">Unidades:</h3>
+              <h3 className="uni-box">
+                Unidades: {atmCountLoading ? 'carregando...' : atmCount !== null ? atmCount : atmCountError ? 'erro' : '—'}
+              </h3>
 
               {/* Cards */}
               <div className="box-card">
