@@ -44,7 +44,7 @@ function LoginAdmin() {
       // Armazena o token no cookie
       document.cookie = `token=${result.token}; path=/; max-age=86400`;
 
-      // 👉 NOVA LINHA: Salva o email do usuário no localStorage
+      // 👉 Salva o email do usuário no localStorage
       localStorage.setItem("userEmail", data.email);
       
       navigate("/dashboard");
@@ -59,6 +59,24 @@ function LoginAdmin() {
   return (
     <div className="LoginAdmin">
       <div className="container-login">
+
+        {/* Botão de voltar em forma de seta */}
+        <button 
+          onClick={() => navigate("/")} 
+          className="botao-voltar"
+          aria-label="Voltar para Home"
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor" 
+            className="icon-seta"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <h1 className="title-login">ATM CHECK</h1>
           <p className='quemsou'>Admin, faça login.</p>
@@ -77,9 +95,9 @@ function LoginAdmin() {
             className='btn-login'
             label={isSubmitting ? "Entrando..." : "Entrar"}
             disabled={isSubmitting}
-            />
+          />
 
-            {erro && <p className="erro-msg-cre">{erro}</p>}
+          {erro && <p className="erro-msg-cre">{erro}</p>}
         </form>
       </div>
     </div>

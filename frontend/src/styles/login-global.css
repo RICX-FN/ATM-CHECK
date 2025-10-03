@@ -83,7 +83,27 @@ form {
   transition: all .3s ease;
 }
 
-/*Animations*/
+.botao-voltar {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.botao-voltar .icon-seta {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+  transition: stroke 0.3s ease;
+}
+
+.botao-voltar:hover .icon-seta {
+  stroke: purple;
+}
 
 @keyframes pulse-check-atm {
   0% {
