@@ -27,12 +27,32 @@ function Agent() {
   const [atmCountError, setAtmCountError] = useState<string | null>(null);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log('Current token:', token);
+    if (!token) {
+      console.warn('No token found in localStorage — continuing without auth header');
+      // do not redirect; allow UI to load and requests will be sent without Authorization if needed
+    }
+
     const email = localStorage.getItem("userEmail");
     const usuario = localStorage.getItem("userUsuario");
-    const storedAtmId = localStorage.getItem("atmId");
+
+    // Get ATM ID from storage (do not fallback to a hardcoded id)
+    const storedAtmId = findAtmIdFromStorage();
+    console.log('Initial atmId:', storedAtmId);
+
     setUserEmail(email);
     setUserUsuario(usuario);
-    setAtmId(storedAtmId);
+    if (storedAtmId) {
+      setAtmId(storedAtmId);
+      console.log('Set atmId state to:', storedAtmId);
+
+      // Store ATM ID in both storages for persistence
+      localStorage.setItem('atmId', storedAtmId);
+      sessionStorage.setItem('atmId', storedAtmId);
+    } else {
+      console.warn('No atmId available in storage; user must select or be assigned an ATM before applying changes.');
+    }
 
     // tentar obter id do agente (várias chaves possíveis)
     const storedAgentId =
@@ -52,12 +72,45 @@ function Agent() {
     }
   }, []);
 
+  // tenta localizar atmId em várias chaves comuns no localStorage e sessionStorage
+  const findAtmIdFromStorage = (): string | null => {
+    const keys = ['atmId', 'atmID', 'idAtm', 'id_atm', 'atmid', 'atm_id', 'id', 'ATM_ID'];
+
+    // Check localStorage
+    for (const k of keys) {
+      const v = localStorage.getItem(k);
+      if (v) {
+        console.log('Found atmId in localStorage:', k, v);
+        return v;
+      }
+    }
+
+    // Check sessionStorage
+    for (const k of keys) {
+      const v = sessionStorage.getItem(k);
+      if (v) {
+        console.log('Found atmId in sessionStorage:', k, v);
+        return v;
+      }
+    }
+
+    console.log('No atmId found in storage');
+    return null;
+  };
+
   // Busca dados do ATM e popula os estados da tela
   const fetchAtm = async (id: string) => {
     try {
       const token = localStorage.getItem('token');
+      // do not redirect on missing token; just call API without Authorization if absent
+      if (!token) {
+        console.warn('No token available; calling fetchAtm without Authorization header');
+      }
       const res = await fetch(`https://backend-atm-check.onrender.com/atms/${id}`, {
-        headers: token ? { 'Authorization': `Bearer ${token}` } : undefined
+        headers: {
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+          'Content-Type': 'application/json'
+        }
       });
       if (!res.ok) {
         console.error('Erro ao buscar ATM:', res.statusText);
@@ -77,7 +130,7 @@ function Agent() {
   };
 
   // Busca a contagem de ATMs para um agente
-  const fetchAgentAtmCount = async (id: string) => {
+  const fetchAgentAtmCount = async (id: string): Promise<number | null> => {
     setAtmCountLoading(true);
     setAtmCountError(null);
     try {
@@ -107,9 +160,11 @@ function Agent() {
 
       if (count == null) throw new Error('Não foi possível determinar a contagem');
       setAtmCount(count);
+      return count;
     } catch (err: any) {
       console.error('Erro ao buscar contagem de ATMs do agente:', err);
       setAtmCountError(err.message || 'Erro ao buscar contagem');
+      return null;
     } finally {
       setAtmCountLoading(false);
     }
@@ -125,37 +180,175 @@ function Agent() {
 
   const handleAplicar = () => {
     setShowBtn(false);
-    // se não houver atmId, apenas informar
-    if (!atmId) {
-      alert('ATM ID não definido. Alterações não foram enviadas.');
+
+    // Get ATM ID from state or storage; do not use a fallback fake id
+    const currentAtmId = atmId || findAtmIdFromStorage();
+    console.log('Attempting to update ATM with ID:', currentAtmId);
+
+    if (!currentAtmId) {
+      console.error('No ATM ID found; aborting update to avoid 404');
+      alert('ID do ATM não definido. Selecione um ATM válido antes de aplicar.');
       return;
     }
 
-    // envia os estados atuais para a API
+    // Persist the id just in case
+    localStorage.setItem('atmId', currentAtmId);
+    sessionStorage.setItem('atmId', currentAtmId);
+    setAtmId(currentAtmId);
+
     (async () => {
       try {
         const token = localStorage.getItem('token');
-        const payload = {
+
+        // determine numeroDeAtms to send: prefer state, otherwise try fetching from agent endpoint
+        let countToSend: number | null = atmCount;
+        if (countToSend == null) {
+          const storedAgentId = localStorage.getItem("userId") || localStorage.getItem("agentId") || localStorage.getItem("id") || null;
+          if (storedAgentId) {
+            countToSend = await fetchAgentAtmCount(storedAgentId);
+          }
+        }
+
+        const minimalPayload: any = {
           sistema: sistemaValue,
           valores: valoresValue,
           papel: papelValue,
-          lsc: lscValue
+          lsc: lscValue,
+          numeroDeAtms: countToSend ?? 0
         };
 
-        const res = await fetch(`https://backend-atm-check.onrender.com/atms/${atmId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-          },
-          body: JSON.stringify(payload)
+        const headers: any = { 'Content-Type': 'application/json' };
+        if (token) headers.Authorization = `Bearer ${token}`;
+
+        // Verify ATM exists before attempting update
+        try {
+          const verifyRes = await fetch(`https://backend-atm-check.onrender.com/atms/${currentAtmId}`, {
+            method: 'GET',
+            headers: {
+              ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (verifyRes.status === 404) {
+            console.error('ATM not found (404) for id:', currentAtmId);
+            alert('ATM não encontrado. Verifique o ID antes de aplicar.');
+            return;
+          }
+
+          // proceed, but reuse existingData fetch below if needed
+        } catch (verifyErr) {
+          console.warn('Error verifying ATM existence, continuing to attempt update', verifyErr);
+        }
+
+        // 1) Try PATCH with minimal payload (safer for partial updates)
+        try {
+          console.log('Attempting PATCH with payload:', minimalPayload);
+          const patchRes = await fetch(`https://backend-atm-check.onrender.com/atms/${currentAtmId}`, {
+            method: 'PATCH',
+            headers,
+            body: JSON.stringify(minimalPayload)
+          });
+
+          if (patchRes.ok) {
+            const data = await patchRes.json().catch(() => null);
+            console.log('PATCH success response:', data);
+            alert('Valores aplicados com sucesso (PATCH)!');
+            return;
+          }
+
+          // if PATCH returned 405 Method Not Allowed, or other 4xx, proceed to PUT fallback
+          const patchText = await patchRes.text().catch(() => '');
+          console.warn('PATCH failed, status:', patchRes.status, 'body:', patchText);
+        } catch (patchErr) {
+          console.warn('PATCH attempt failed:', patchErr);
+        }
+
+        // 2) Fallback: fetch existing ATM and merge
+        // Fetch current ATM data to preserve fields like localizacao
+        let existingData: any = {};
+        try {
+          const getRes = await fetch(`https://backend-atm-check.onrender.com/atms/${currentAtmId}`, {
+            headers: {
+              ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+              'Content-Type': 'application/json'
+            }
+          });
+          if (getRes.ok) {
+            existingData = await getRes.json().catch(() => ({}));
+            console.log('Fetched existing ATM data:', existingData);
+          } else {
+            const txt = await getRes.text().catch(() => '');
+            console.warn('Could not fetch existing ATM data, proceeding with best-effort payload:', getRes.status, txt);
+          }
+        } catch (err) {
+          console.warn('Error fetching existing ATM data, proceeding with best-effort payload', err);
+        }
+
+        // Build payload in the exact shape backend expects
+        const apiPayload: {
+          dinheiro: boolean;
+          localizacao?: string;
+          papel: boolean;
+          levantamentoSemCartao: boolean;
+          sistema: boolean;
+        } = {
+          dinheiro: Number(valoresValue) > 0,
+          localizacao: existingData?.localizacao ?? existingData?.localizacaoAtm ?? '',
+          papel: papelValue === 'Com papel',
+          levantamentoSemCartao: lscValue === 'Com Levantamento',
+          sistema: Number(sistemaValue) > 0
+        };
+
+        // Remove undefined fields (typed)
+        (Object.keys(apiPayload) as Array<keyof typeof apiPayload>).forEach((k) => {
+          if (apiPayload[k] === undefined) {
+            delete apiPayload[k];
+          }
         });
 
-        if (!res.ok) throw new Error('Erro ao atualizar ATM');
-        alert('Valores aplicados!');
+        console.log('Sending API payload (expected schema):', apiPayload);
+
+        // First try PATCH
+        try {
+          const patchRes2 = await fetch(`https://backend-atm-check.onrender.com/atms/${currentAtmId}`, {
+            method: 'PATCH',
+            headers,
+            body: JSON.stringify(apiPayload)
+          });
+
+          if (patchRes2.ok) {
+            const data = await patchRes2.json().catch(() => null);
+            console.log('PATCH success response:', data);
+            alert('Valores aplicados com sucesso (PATCH)!');
+            return;
+          }
+
+          const patchText2 = await patchRes2.text().catch(() => '');
+          console.warn('PATCH failed, status:', patchRes2.status, 'body:', patchText2);
+        } catch (patchErr2) {
+          console.warn('PATCH attempt failed:', patchErr2);
+        }
+
+        // Fallback to PUT with same apiPayload
+        const putRes2 = await fetch(`https://backend-atm-check.onrender.com/atms/${currentAtmId}`, {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify(apiPayload)
+        });
+
+        if (!putRes2.ok) {
+          const errBody2 = await putRes2.text().catch(() => '');
+          console.error('PUT failed:', putRes2.status, errBody2);
+          throw new Error(`Erro ao atualizar ATM: ${putRes2.status} ${errBody2}`);
+        }
+
+        const putData2 = await putRes2.json().catch(() => null);
+        console.log('PUT success response:', putData2);
+        alert('Valores aplicados com sucesso (PUT)!');
       } catch (err) {
         console.error('Erro ao aplicar valores:', err);
-        alert('Erro ao aplicar valores');
+        alert(err instanceof Error ? err.message : 'Erro ao aplicar valores');
       }
     })();
   };
