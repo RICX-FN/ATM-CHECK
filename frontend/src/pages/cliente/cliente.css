@@ -1,0 +1,24 @@
+.screen-cliente {
+  background-color: #070416f3;
+  height: 100dvh;
+  width: 100dvw;
+}
+
+.container-cliente {
+  padding: 10px;
+}
+
+.linha-card-cliente {
+  border: 1px solid #ffffff23;
+  width: 100%;
+}
+
+.card-cliente {
+  margin-top: 10px;
+  border: 1px solid #ffffff23;
+  padding: 5px;
+  border-radius: 7px;
+  background: #5856d6;
+  background: #321da8;
+  background: radial-gradient(circle, #5856d646 0%, #321da848 100%);
+}

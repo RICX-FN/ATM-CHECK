@@ -4,6 +4,7 @@ import LoginAdmin from "../pages/login-admin/login-admin";
 import LoginAgent from "../pages/login-agent/login-agent";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Agent from "../pages/agent/Agent";
+import Cliente from "../pages/cliente/Cliente";
 import PrivateRoute from "../components/PrivateRoute";
 
 export default function ATMRoutes() {
@@ -12,6 +13,7 @@ export default function ATMRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/login-admin" element={<LoginAdmin />} />
       <Route path="/login-agent" element={<LoginAgent />} />
+      <Route path="/cliente" element={<Cliente />} />
 
       {/* Rotas protegidas */}
       <Route

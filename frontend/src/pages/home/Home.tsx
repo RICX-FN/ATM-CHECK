@@ -180,10 +180,9 @@ function Home() {
           }}
         >
           <Link
-            to="/"
+            to="/Cliente"
             className="btn-checar"
             style={{
-              cursor: "not-allowed",
               textDecoration: "none",
               fontWeight: "bold",
               color: "#fff",
