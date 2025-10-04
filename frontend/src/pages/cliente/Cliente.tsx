@@ -8,7 +8,7 @@ function Cliente() {
         2. cards com os status dos ATMs
         */}
       <div className="container-cliente">
-        <h1 className="title-login" id="head-text-cliente">ATM CHECK</h1>
+        <h2 className="head-text-cliente">Explore</h2>
         <header className="header-cliente">
             <input className="search-bar-cliente" type="search" placeholder="Buscar por cidades"/>
         </header>
