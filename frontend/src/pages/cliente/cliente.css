@@ -5,14 +5,27 @@
 }
 
 .container-cliente {
-  padding: 10px;
+  padding: 0;
 }
 
-#head-text-cliente {
-    font-weight: 900;
-    font-size: 1.8em;
-    text-align: left;
-    color: var(--color-primary);
+.header-cliente {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 15px;
+  padding: 10px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  background-color: #352b79a8;
+  width: 90dvw;
+  height: 110px;
+}
+
+.search-bar-cliente {
+  width: 90vw;
+  height: 40px;
 }
 
 .linha-card-cliente {
@@ -20,17 +33,38 @@
   width: 100%;
 }
 
-.card-cliente {
-  margin-top: 10px;
-  border: 1px solid #ffffff23;
-  padding: 5px;
-  border-radius: 7px;
-  background: #5856d6;
-  background: #321da8;
-  background: radial-gradient(circle, #5856d646 0%, #321da848 100%);
+.session-cards-cliente {
+  padding: 140px 10px 10px 10px;
 }
 
-.search-bar-cliente {
-    width: 100%;
-    height: 40px;
+.card-cliente {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 15px;
+  background-color: #1a172e;
+}
+
+.retangulo-card-clinte {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #352b79;
+  padding: 5px;
+  width: 70px;
+  height: 30px;
+  gap: 10px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.group-card-cliente {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.values-card-cliente > p {
+  font-weight: 700;
+  font-size: 15pt;
 }

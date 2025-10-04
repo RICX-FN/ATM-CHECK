@@ -8,22 +8,56 @@ function Cliente() {
         2. cards com os status dos ATMs
         */}
       <div className="container-cliente">
-        <h2 className="head-text-cliente">Explore</h2>
         <header className="header-cliente">
-            <input className="search-bar-cliente" type="search" placeholder="Buscar por cidades"/>
+          <h1 className="head-text-cliente">Explore</h1>
+          <input className="search-bar-cliente" type="search" placeholder="Buscar por cidades" />
         </header>
 
         <section className="session-cards-cliente">
-            <div className="card-cliente">
-                <p className="cidade-cliente">Cidade: {}</p>
-                <hr className="linha-card-cliente"/>
-                <p className="status-atm-cliente">Status ATM</p>
-                <p className="unidades-atm-cliente">ATM: {}</p>
-                <p className="papel-cliente">Papel: {}</p>
-                <p className="valores-cliente">Valores: {}</p>
-                <p className="sistema-cliente">Sistema: {}</p>
-                <p className="LSC-cliente">Levantamento sem cartão: {}</p>
+          <div className="card-cliente">
+            <div className="text-content-card-client">
+              <h3 className="cidade-cliente">Cidade {}</h3>
+              <p className="unidades-atm-cliente">0 {}unidades</p>
             </div>
+
+            <div className="group-card-cliente">
+              <div className="retangulo-card-clinte">
+                <div className="icon-card-cliente">
+                  📄
+                </div>
+                <div className="values-card-cliente">
+                  <p>0</p>
+                </div>
+              </div>
+
+              <div className="retangulo-card-clinte">
+                <div className="icon-card-cliente">
+                  💰
+                </div>
+                <div className="values-card-cliente">
+                  <p>0</p>
+                </div>
+              </div>
+
+              <div className="retangulo-card-clinte">
+                <div className="icon-card-cliente">
+                  ⚙️
+                </div>
+                <div className="values-card-cliente">
+                  <p>0</p>
+                </div>
+              </div>
+
+              <div className="retangulo-card-clinte">
+                <div className="icon-card-cliente">
+                  💳
+                </div>
+                <div className="values-card-cliente">
+                  <p>0</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </div>
