@@ -12,11 +12,11 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border-radius: 15px;
+  border-radius: 7px;
   padding: 10px;
   position: fixed;
   top: 10px;
-  left: 10px;
+  left: 8px;
   right: 10px;
   background-color: #352b79a8;
   width: 90dvw;
@@ -26,6 +26,7 @@
 .search-bar-cliente {
   width: 90vw;
   height: 40px;
+  border-radius: 7px;
 }
 
 .linha-card-cliente {
@@ -67,4 +68,32 @@
 .values-card-cliente > p {
   font-weight: 700;
   font-size: 15pt;
+}
+
+.icon-card-cliente {
+  font-size: 25px;
+}
+
+.cidade-cliente {
+  color: #5856D6;
+  font-size: 20px;
+}
+
+.btn-card-cliente {
+  width: 100%;
+  background-color: #5856D6;
+  font-weight: 500;
+  font-size: 1em;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 7px;
+  border-radius: 10px;
+}
+
+.clickbtn-card-cliente {
+  color: #ffffff52;
+  font-size: 8pt;
+  text-align: right;
+  margin-top: 5px;
 }

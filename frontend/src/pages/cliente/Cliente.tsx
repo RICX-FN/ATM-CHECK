@@ -57,6 +57,10 @@ function Cliente() {
                 </div>
               </div>
             </div>
+            
+            <p className="clickbtn-card-cliente">↓ COPIE E USE NO GPS</p>
+
+            <button className="btn-card-cliente">Copiar localização</button>
           </div>
         </section>
       </div>
